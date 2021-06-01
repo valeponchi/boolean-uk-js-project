@@ -29,6 +29,7 @@ let state = {
         title: "",
         originalTitle: "",
         director: "",
+        description: "",
       },
     },
   ],
@@ -37,6 +38,7 @@ let state = {
 const headerEl = document.querySelector("header");
 const asideEl = document.querySelector(".aside");
 const mainEl = document.querySelector(".main");
+const mainRenderSection = document.querySelector(".mainrendersection");
 
 render();
 
@@ -132,4 +134,129 @@ function createForm() {
   // comment: "I really loved FullMetal Alchimist",
   // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
   // rating: 1,
+  formEl
+    .addEventListener
+    // getUserInfo(idinfo).then(function (filmInfo)
+    ();
 }
+// idinfo = form.animeid
+// this function is inside the form
+function getFilmInfo(idinfo) {
+  return fetch(`https://ghibliapi.herokuapp.com/films/${idinfo}`)
+    .then(function (filmDataFromServer) {
+      return filmDataFromServer.json();
+    })
+    .then(function (resp) {
+      console.log(resp);
+    });
+}
+
+// getUserInfo(idinfo).then(function (filmInfo) {
+
+//   let post = {
+//     id: 1,
+//     userId: 1, //todo
+//     postTitle: form.post-title.value,
+//     image:form. ,
+//     genre: all stuff from form ,
+//     content: form.content,
+//     animeId: form.animeid etc,
+//     rating: , //3/5 star star star,
+//     animeInfo: ''
+//   }
+//   post.animeInfo = filmInfo;
+
+//   post this post to our own server
+
+//   state.posts.push(post)
+
+//   renderCards(state.posts)
+// });
+
+function renderCards(posts) {
+  posts.map(renderCard);
+}
+
+getFilmInfo("2baf70d1-42bb-4437-b551-e5fed5a87abe");
+
+function renderCard(post) {
+  let journalReviewTitle = document.createElement("h3");
+  journalReviewTitle.innerText = `My Review of ${post.animeInfo.title}`;
+
+  let ratingScore = document.createElement("p");
+  ratingScore.innerText = post.rating;
+  // need design more beautiful
+
+  let genre = document.createElement("span");
+  genre.innerText = post.genre;
+
+  let journalTitle = document.createElement("h3");
+  journalTitle.innerText = post.title;
+
+  let deleteBTn = document.createElement("button");
+  deleteBTn.innerText = "DELETE";
+
+  //todo delete the post to the server then update the state then rendercards
+
+  let editBTn = document.createElement("button");
+  editBTn.innerText = "Edit";
+
+  //todo create a form to edit then update to server then update to the state then rendercards
+
+  let journalContent = document.createElement("p");
+  journalContent.innerText = post.content;
+
+  let journalBtns = document.createElement("div");
+
+  let filmPicture = document.createElement("img");
+  filmPicture.setAttribute("src", post.image);
+
+  let filmDescription = document.createElement("p");
+  filmDescription.innerText = "Description";
+
+  let spanDescription = document.createElement("span");
+  spanDescription.innerText = post.animeInfo.description;
+
+  filmDescription.append(spanDescription);
+
+  let filmDirector = document.createElement("p");
+
+  filmDirector.innerText = post.animeInfo.director;
+
+  mainRenderSection.append(
+    journalReviewTitle,
+    ratingScore,
+    journalTitle,
+    journalContent,
+    journalBtns,
+    filmPicture,
+    filmDescription
+  );
+}
+
+// postTitle: "My favourite Anime",
+// image: "",
+// genre: "romance/action/funny/",
+// content: "I really loved FullMetal Alchimist",
+// animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+// rating: 3, //3/5 star star star,
+
+let singlePost = {
+  id: 1,
+  userId: 1,
+  postTitle: "My favourite Anime",
+  image:
+    "https://www.plantemoran.com/-/media/images/insights-images/2018/04/thinking-about-becoming-a-smart-city.jpg?h=704&w=1100&hash=D5677DCC5CE6DF0C080CFAB8CC3EB10E",
+  genre: "romance/action/funny/",
+  content: "I really loved FullMetal Alchimist",
+  animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+  rating: 3,
+  animeInfo: {
+    title: "city in the sky",
+    originalTitle: "hashashashsa",
+    director: "agsasgasgasgas",
+    description: "asgaghhasgsa",
+  },
+};
+
+// renderCard(singlePost);
