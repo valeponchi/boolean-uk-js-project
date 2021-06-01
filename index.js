@@ -151,6 +151,8 @@ function getFilmInfo(idinfo) {
     });
 }
 
+// uncompleted function
+
 // getUserInfo(idinfo).then(function (filmInfo) {
 
 //   let post = {
@@ -160,10 +162,18 @@ function getFilmInfo(idinfo) {
 //     image:form.image ,
 //     genre: form.select.value ,
 //     content: form.content,
-//     animeId: form.animeid etc,
+//     animeId: form.animeid,
 //     rating: , form.rating,
 //     animeInfo: ''
 //   }
+
+// let simplifiedFilmInfo = {
+//   id: filmInfo.id or form.animeID,
+//   title: filmInfo.title,
+//   orginalTitle: filmInfo.original_title,
+//   director: filmInfo.director,
+//   description: filmInfo.description
+// }
 //   post.animeInfo = filmInfo;
 
 //   post this post to our own server
@@ -180,20 +190,57 @@ function renderCards(posts) {
 getFilmInfo("2baf70d1-42bb-4437-b551-e5fed5a87abe");
 
 function renderCard(post) {
+  let journalList = document.createElement("li");
+  journalList.className = "journallist";
+
   let journalReviewTitle = document.createElement("h3");
-  journalReviewTitle.innerText = `My Review of ${post.animeInfo.title}`;
+  journalReviewTitle.innerText = `Review of `;
+
+  let spanFilmName = document.createElement("span");
+  spanFilmName.className = "filmname";
+  spanFilmName.innerText = post.animeInfo.title;
+
+  let originalTitle = document.createElement("p");
+  originalTitle.innerText = post.animeInfo.originalTitle;
+
+  journalReviewTitle.append(spanFilmName, originalTitle);
+
+  let ratingSection = document.createElement("div");
+  ratingSection.className = "ratediv";
 
   let ratingScore = document.createElement("p");
-  ratingScore.innerText = post.rating;
-  // need design more beautiful
+  ratingScore.className = " ratingScore";
+  ratingScore.innerText = `Rating: ${post.rating} `;
+
+  let svgel = document.createElement("img");
+  svgel.setAttribute("class", "ratingstar");
+
+  //put how may stars
+  if (post.rating >= 3) {
+    svgel.setAttribute("src", "image/rate.svg");
+
+    ratingScore.append(svgel);
+  }
 
   let genre = document.createElement("span");
   genre.innerText = post.genre;
 
+  ratingSection.append(ratingScore, genre);
+
   let journalTitle = document.createElement("h3");
-  journalTitle.innerText = post.title;
+
+  journalTitle.innerText = "Title: ";
+
+  let journalSpanTitle = document.createElement("span");
+  journalSpanTitle.className = "titleofjournal";
+  journalSpanTitle.innerText = post.postTitle;
+  journalTitle.append(journalSpanTitle);
+
+  let journalBtns = document.createElement("div");
+  journalBtns.className = "buttonsection";
 
   let deleteBTn = document.createElement("button");
+  deleteBTn.className = "deleteBTn";
   deleteBTn.innerText = "DELETE";
 
   //todo delete the post to the server then update the state then rendercards
@@ -201,18 +248,20 @@ function renderCard(post) {
   let editBTn = document.createElement("button");
   editBTn.innerText = "Edit";
 
+  journalBtns.append(editBTn, deleteBTn);
   //todo create a form to edit then update to server then update to the state then rendercards
 
   let journalContent = document.createElement("p");
+  journalContent.className = "journalContent";
   journalContent.innerText = post.content;
 
-  let journalBtns = document.createElement("div");
-
   let filmPicture = document.createElement("img");
+  filmPicture.setAttribute("class", "filmpicture");
   filmPicture.setAttribute("src", post.image);
 
   let filmDescription = document.createElement("p");
-  filmDescription.innerText = "Description";
+  filmDescription.className = " filmDescription";
+  filmDescription.innerText = "Description: ";
 
   let spanDescription = document.createElement("span");
   spanDescription.innerText = post.animeInfo.description;
@@ -223,15 +272,16 @@ function renderCard(post) {
 
   filmDirector.innerText = post.animeInfo.director;
 
-  mainRenderSection.append(
+  journalList.append(
     journalReviewTitle,
-    ratingScore,
+    ratingSection,
     journalTitle,
     journalContent,
     journalBtns,
     filmPicture,
     filmDescription
   );
+  mainRenderSection.append(journalList);
 }
 
 // postTitle: "My favourite Anime",
@@ -245,18 +295,37 @@ let singlePost = {
   id: 1,
   userId: 1,
   postTitle: "My favourite Anime",
-  image:
-    "https://www.plantemoran.com/-/media/images/insights-images/2018/04/thinking-about-becoming-a-smart-city.jpg?h=704&w=1100&hash=D5677DCC5CE6DF0C080CFAB8CC3EB10E",
-  genre: "romance/action/funny/",
+  genre: "comedy",
+  image: "https://cdn.wallpapersafari.com/8/37/kpetxK.png",
   content: "I really loved FullMetal Alchimist",
   animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
   rating: 3,
   animeInfo: {
-    title: "city in the sky",
-    originalTitle: "hashashashsa",
-    director: "agsasgasgasgas",
-    description: "asgaghhasgsa",
+    title: "Castle in the Sky",
+    originalTitle: "天空の城ラピュタ",
+    director: "Hayao Miyazaki",
+    description:
+      "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world.",
   },
 };
 
-// renderCard(singlePost);
+renderCard(singlePost);
+
+let singlePost3 = {
+  id: 1,
+  userId: 1,
+  postTitle: "My favourite Anime",
+  genre: "comedy",
+  image: "https://cdn.wallpapersafari.com/8/37/kpetxK.png",
+  content: "I really loved FullMetal Alchimist",
+  animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+  rating: 2,
+  animeInfo: {
+    title: "Castle in the Sky",
+    originalTitle: "天空の城ラピュタ",
+    director: "Hayao Miyazaki",
+    description:
+      "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world.",
+  },
+};
+renderCard(singlePost3);
