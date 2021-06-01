@@ -33,6 +33,10 @@ let state = {
       },
     },
   ],
+  activeUser: {
+    id: "",
+    name: "",
+  },
 };
 
 const headerEl = document.querySelector("header");
