@@ -30,10 +30,10 @@
       "animeId": "2baf70d1-42bb-4437-b551-e5fed5a87abe",
       "rating": 3, //3/5 star star star,
       "animeInfo": {
-        title: "",
-        originalTitle: "",
-        director: "",
-        description: ""
+        "title": "",
+        "originalTitle": "",
+        "director": "",
+        "description": ""
       }
     }
    
