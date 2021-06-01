@@ -8,8 +8,16 @@ body {
   background-image: url(https://www.kolpaper.com/wp-content/uploads/2021/03/HD-Spirited-Away-Wallpaper.jpg);
   overflow: scroll;
   background-size: cover;
+
+  display: grid;
+  grid-template:
+    "header header" 80px
+    "aside main" 1fr/
+    1fr 2fr;
 }
 header {
+  grid-area: header;
+
   display: grid;
   grid-template-columns: 80% 10% 10%;
   padding: 20px;
@@ -32,4 +40,32 @@ header h1 {
 }
 .userdiv span {
   font-size: larger;
+}
+
+/* ASIDE  */
+.aside {
+  grid-area: aside;
+  border: 2px solid teal;
+}
+
+.main {
+  grid-area: main;
+  border: 2px solid rgb(243, 239, 9);
+}
+.checkboxdiv {
+  background-color: #40e0d080;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 25% 75%;
+  align-items: center;
+  color: lightcyan;
+}
+.checkboxdiv p {
+  border: dashed 2px lightcyan;
+  padding: 5px;
+  text-align: center;
+  background-color: lightsalmon;
+}
+.checkboxdiv label {
+  margin: 0px 10px 0px 10px;
 }
