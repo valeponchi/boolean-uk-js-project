@@ -9,18 +9,16 @@
       "name": "Linlin"
     }   
   ],
-   "animeJournal": [
+   "posts": [
      {
+       "id":1,
       "userId": 1,
       "postTitle": "My favourite Anime",
       "image": "",
       "genre": "anime",
       "comment": "I really loved FullMetal Alchimist",
-      "animeUrl": "http....",
+      "animeId": "2baf70d1-42bb-4437-b551-e5fed5a87abe",
       "rating": 1
-     },
-     {
-       
      }
    ]  
 }
