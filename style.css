@@ -1,0 +1,35 @@
+* {
+  font-family: sans-serif;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body {
+  background-image: url(https://www.kolpaper.com/wp-content/uploads/2021/03/HD-Spirited-Away-Wallpaper.jpg);
+  overflow: scroll;
+  background-size: cover;
+}
+header {
+  display: grid;
+  grid-template-columns: 80% 10% 10%;
+  padding: 20px;
+  justify-items: center;
+  background-color: #00808020;
+  gap: 10px;
+}
+header h1 {
+  color: lavender;
+  text-shadow: 3px 2px 2px black;
+}
+.userdiv {
+  color: whitesmoke;
+  width: 130px;
+  border-radius: 15px;
+  padding: 10px 20px;
+  background-color: teal;
+  display: grid;
+  justify-content: center;
+}
+.userdiv span {
+  font-size: larger;
+}
