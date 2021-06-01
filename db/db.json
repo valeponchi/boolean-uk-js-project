@@ -10,30 +10,32 @@
     }   
   ],
    "posts": [
+    //  {
+    //    "id":1,
+    //   "userId": 1,
+    //   "postTitle": "My favourite Anime",
+    //   "image": "",
+    //   "genre": "anime",
+    //   "comment": "I really loved FullMetal Alchimist",
+    //   "animeId": "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+    //   "rating": 1
+    //  },
      {
-       "id":1,
+      "id": 1,
       "userId": 1,
       "postTitle": "My favourite Anime",
       "image": "",
-      "genre": "anime",
-      "comment": "I really loved FullMetal Alchimist",
+      "genre": "romance",
+      "content": "I really loved FullMetal Alchimist",
       "animeId": "2baf70d1-42bb-4437-b551-e5fed5a87abe",
-      "rating": 1
-     }
-     {
-      id: 1,
-      userId: 1,
-      postTitle: "My favourite Anime",
-      image: "",
-      genre: "romance/action/funny/",
-      content: "I really loved FullMetal Alchimist",
-      animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
-      rating: 3, //3/5 star star star,
-      animeInfo: {
+      "rating": 3, //3/5 star star star,
+      "animeInfo": {
         title: "",
         originalTitle: "",
         director: "",
-        description: "",
+        description: ""
       }
+    }
+   
    ]  
 }

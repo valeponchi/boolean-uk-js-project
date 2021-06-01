@@ -99,7 +99,7 @@ function createForm() {
   imageEl.setAttribute(`src`, ``); // TO WRITE WHAT IS NEEDED HERE
   imageEl.setAttribute(`alt`, `post image`);
 
-  //COMMENT:
+  //CONTENT:
   let labelComment = document.createElement(`label`);
   labelComment.setAttribute(`for`, `post-commnet`);
   labelComment.innerText = "Comment:";
@@ -157,11 +157,11 @@ function getFilmInfo(idinfo) {
 //     id: 1,
 //     userId: 1, //todo
 //     postTitle: form.post-title.value,
-//     image:form. ,
-//     genre: all stuff from form ,
+//     image:form.image ,
+//     genre: form.select.value ,
 //     content: form.content,
 //     animeId: form.animeid etc,
-//     rating: , //3/5 star star star,
+//     rating: , form.rating,
 //     animeInfo: ''
 //   }
 //   post.animeInfo = filmInfo;
@@ -235,7 +235,7 @@ function renderCard(post) {
 }
 
 // postTitle: "My favourite Anime",
-// image: "",
+// image: "", should be a url
 // genre: "romance/action/funny/",
 // content: "I really loved FullMetal Alchimist",
 // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
