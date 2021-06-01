@@ -44,7 +44,7 @@ function render() {
   getUserInfo().then(function (accounts) {
     console.log(accounts);
     renderUserAccount(accounts);
-    // createForm();
+    createForm();
   });
 }
 
@@ -92,7 +92,7 @@ function createForm() {
   inputPostTitle.required = true;
 
   //IMAGE:
-  let imageEl = document.createElement(`img`);
+  let imageEl = document.createElement(`input`);
   imageEl.setAttribute(`class`, `post-image`);
   imageEl.setAttribute(`src`, ``); // TO WRITE WHAT IS NEEDED HERE
   imageEl.setAttribute(`alt`, `post image`);
@@ -100,7 +100,7 @@ function createForm() {
   //COMMENT:
   let labelComment = document.createElement(`label`);
   labelComment.setAttribute(`for`, `post-commnet`);
-  labelComment.innerText = "Comment:";
+  labelComment.innerText = "Content:";
 
   let inputComment = document.createElement(`input`);
   inputComment.setAttribute(`id`, `post-comment`);
@@ -133,3 +133,7 @@ function createForm() {
   // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
   // rating: 1,
 }
+
+function getFilmInfo() {}
+
+function renderCard() {}
