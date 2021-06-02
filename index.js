@@ -211,13 +211,44 @@ function createForm(films) {
   formBtn.innerText = "CREATE"
 
   //APPEND:
+  formEl.append(
+    labelPostTitle,
+    inputPostTitle,
+    imageEl,
+    labelComment,
+    inputComment,
+    labelAnimeId,
+    inputAnimeId
+  );
+  asideEl.append(formEl);
+
+  // comment: "I really loved FullMetal Alchimist",
+  // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+  // rating: 1,
+  formEl
+    .addEventListener
+    // getUserInfo(idinfo).then(function (filmInfo)
+    ();
+}
+// idinfo = form.animeid
+// this function is inside the form
+
+// function getFilmInfo(idinfo) {
+//   return fetch(`https://ghibliapi.herokuapp.com/films/${idinfo}`)
+//     .then(function (filmDataFromServer) {
+//       return filmDataFromServer.json();
+//     })
+//     .then(function (resp) {
+//       console.log(resp);
+//     });
+// }
   filmTitleLabelEl.append(filmTitleLabelH3)
 
   genreLabel.append(genreLabelH3)
   genreSelectEl.append(genreRomanceOption,
     genreActionOption,
     genreComedyOption,
-    genreMagicOption) //append here the options
+    genreMagicOption) 
   labelComment.append(labelCommentH3)
   imageLabel.append(imageLabelH3)
 
@@ -236,6 +267,133 @@ function createForm(films) {
     formBtn
   )
 
+// form(data from server) inside the form we can get the nicefilmapi, genre, title, etc then post to server/ state.posts/ then renderposts
+
+// posts should be state.posts and film should from the form
+// or we dont need to renderposts in here, can just render one card based on the form
+// use filter to find the data we look for
+
+let filmName = formel.name of the select .value;
+let selectedFilm = films.filter(function (film) {
+  return film.title === filmName;
+});
+
+function renderCards(posts,selectedFilm) {
+  posts.map(renderCard);
+}
+
+let singlePost = {
+  id: 1,
+  userId: 1,
+  image:
+    "https://www.plantemoran.com/-/media/images/insights-images/2018/04/thinking-about-becoming-a-smart-city.jpg?h=704&w=1100&hash=D5677DCC5CE6DF0C080CFAB8CC3EB10E",
+  genre: "romance",
+  content: "I really loved FullMetal Alchimist",
+  // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+  rating: 3,
+  animeInfo: {
+    title: "city in the sky",
+    originalTitle: "hashashashsa",
+    director: "agsasgasgasgas",
+    description: "asgaghhasgsa",
+  },
+};
+
+// renderCard(singlePost);
+
+//   post this post to our own server
+
+function renderCard(formInfo, selectedFilm) {
+  let journalList = document.createElement("li");
+  journalList.className = "journallist";
+
+  let journalReviewTitle = document.createElement("h3");
+  journalReviewTitle.innerText = `Review of`;
+
+  let spanFilmName = document.createElement("span");
+  spanFilmName.className = "filmname";
+  //need to change
+  spanFilmName.innerText = selectedFilm.title;
+
+  let originalTitle = document.createElement("p");
+  originalTitle.innerText = film.originalTitle;
+
+  journalReviewTitle.append(spanFilmName, originalTitle);
+
+  let ratingSection = document.createElement("div");
+  ratingSection.className = "ratediv";
+
+  let ratingScore = document.createElement("p");
+
+  ratingScore.className = " ratingScore";
+  //need to change
+  ratingScore.innerText = `Rating: ${formInfo.rating} `;
+
+  let svgel = document.createElement("img");
+  svgel.setAttribute("class", "ratingstar");
+
+  //put how may stars
+  if (formInfo.rating >= 3) {
+    svgel.setAttribute("src", "image/rate.svg");
+
+    ratingScore.append(svgel);
+  }
+  //need to change
+  let genre = document.createElement("span");
+  genre.innerText = formInfo.genre;
+
+  ratingSection.append(ratingScore, genre);
+
+  let journalBtns = document.createElement("div");
+  journalBtns.className = "buttonsection";
+
+  let deleteBTn = document.createElement("button");
+  deleteBTn.className = "deleteBTn";
+  deleteBTn.innerText = "DELETE";
+
+  //todo delete the post to the server then update the state then rendercards
+
+  let editBTn = document.createElement("button");
+  editBTn.innerText = "Edit";
+
+  journalBtns.append(editBTn, deleteBTn);
+  //todo create a form to edit then update to server then update to the state then rendercards
+
+  let journalContent = document.createElement("p");
+  journalContent.className = "journalContent";
+
+  //need to change
+
+  journalContent.innerText = formInfo.comment;
+
+  let journalBtns = document.createElement("div");
+
+  let filmPicture = document.createElement("img");
+  filmPicture.setAttribute("class", "filmpicture");
+  filmPicture.setAttribute("src", formInfo.image);
+
+  let filmDescription = document.createElement("p");
+  filmDescription.innerText = "Description";
+  filmDescription.className = " filmDescription";
+  filmDescription.innerText = "Description: ";
+
+  let spanDescription = document.createElement("span");
+  // change
+  spanDescription.innerText = selectedFilm.description;
+  // change
+  filmDirector.innerText = selectedFilm.director;
+
+  journalList.append(
+    journalReviewTitle,
+    ratingScore,
+    ratingSection,
+    journalContent,
+    journalBtns,
+    filmPicture,
+    filmDescription
+  );
+  mainRenderSection.append(journalList);
+}
   asideEl.append(formTitle, formEl);
   
   //EVENT LISTENER ON THE FORM
