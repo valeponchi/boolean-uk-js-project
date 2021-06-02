@@ -105,8 +105,6 @@ function transformUglyFilmAPI(uglyFilmAPI) {
   return nicelyTransformedFilm
 }
 
-
-
 //ASIDE FORM FUNCTION:
 function createForm(films) {
   //FORM TITLE:
@@ -148,7 +146,7 @@ function createForm(films) {
   genreLabelH3.setAttribute(`class`, `genre-title`)
   genreLabelH3.innerText = "Select genre: "
   
-  // 📌
+  
   let genreSelectEl = document.createElement(`select`)
   genreSelectEl.setAttribute(`name`, `genre`)
   genreSelectEl.setAttribute(`id`, `genre`)
@@ -169,9 +167,6 @@ function createForm(films) {
   genreMagicOption.setAttribute(`value`, `magic`)
   genreMagicOption.innerText = "Magic"
 
-
-
-
   //IMAGE:
   let imageLabel = document.createElement(`label`);
   imageLabel.setAttribute(`for`, `form-image`);
@@ -186,7 +181,6 @@ function createForm(films) {
   imageInput.setAttribute(`type`, `url`);
   imageInput.required = true
   imageInput.setAttribute(`placeholder`, `Image URL`);
-
 
   //CONTENT:
   let labelComment = document.createElement(`label`);
@@ -247,21 +241,9 @@ function createForm(films) {
     };
     renderCard(posts, filmTitleSelectEl.value)
   })
-    // getUserInfo(idinfo).then(function (filmInfo)
   
-}
-// idinfo = form.animeid
-// this function is inside the form
 
-// function getFilmInfo(idinfo) {
-//   return fetch(`https://ghibliapi.herokuapp.com/films/${idinfo}`)
-//     .then(function (filmDataFromServer) {
-//       return filmDataFromServer.json();
-//     })
-//     .then(function (resp) {
-//       console.log(resp);
-//     });
-// }
+
   filmTitleLabelEl.append(filmTitleLabelH3)
 
   genreLabel.append(genreLabelH3)
@@ -286,7 +268,7 @@ function createForm(films) {
 
     formBtn
   )
-
+}
 // form(data from server) inside the form we can get the nicefilmapi, genre, title, etc then post to server/ state.posts/ then renderposts
 
 // posts should be state.posts and film should from the form
