@@ -44,7 +44,13 @@ let state = {
       },
     },
   ],
-  niceFilmsFromAPI: [] 
+
+  niceFilmsFromAPI: [],
+
+  activeUser: {
+    id: "",
+    name: "",
+  },
 };
 
 
@@ -161,7 +167,7 @@ function createForm(films) {
   imageInput.setAttribute(`placeholder`, `image URL`);
 
 
-  //COMMENT:
+  //CONTENT:
   let labelComment = document.createElement(`label`);
   labelComment.setAttribute(`class`, `form-comment`)
   labelComment.setAttribute(`for`, `form-comment`);
@@ -201,9 +207,6 @@ function createForm(films) {
   //EVENT LISTENER ON THE FORM
 }
 
-
-
-
 //FETCH USERS
 function getUserInfo() {
   return fetch("http://localhost:3000/users").then(function (resp) {
@@ -229,3 +232,61 @@ function createUserAccount(name) {
   headerEl.append(userAccountdivEl);
 }
 
+//   journalList.append(
+//     journalReviewTitle,
+//     ratingSection,
+//     journalTitle,
+//     journalContent,
+//     journalBtns,
+//     filmPicture,
+//     filmDescription
+//   );
+//   mainRenderSection.append(journalList);
+// }
+
+// // postTitle: "My favourite Anime",
+// // image: "", should be a url
+// // genre: "romance/action/funny/",
+// // content: "I really loved FullMetal Alchimist",
+// // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+// // rating: 3, //3/5 star star star,
+
+// let singlePost = {
+//   id: 1,
+//   userId: 1,
+//   postTitle: "My favourite Anime",
+//   genre: "comedy",
+//   image: "https://cdn.wallpapersafari.com/8/37/kpetxK.png",
+//   content: "I really loved FullMetal Alchimist",
+//   animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+//   rating: 3,
+//   animeInfo: {
+//     title: "Castle in the Sky",
+//     originalTitle: "天空の城ラピュタ",
+//     director: "Hayao Miyazaki",
+//     description:
+//       "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world.",
+//   },
+// };
+
+// renderCard(singlePost);
+
+// let singlePost3 = {
+//   id: 1,
+//   userId: 1,
+//   postTitle: "My favourite Anime",
+//   genre: "comedy",
+//   image: "https://cdn.wallpapersafari.com/8/37/kpetxK.png",
+//   content: "I really loved FullMetal Alchimist",
+//   animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+//   rating: 2,
+//   animeInfo: {
+//     title: "Castle in the Sky",
+//     originalTitle: "天空の城ラピュタ",
+//     director: "Hayao Miyazaki",
+//     description:
+//       "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world.",
+//   },
+// };
+// renderCard(singlePost3);
+// >>>>>>> master
