@@ -91,6 +91,11 @@ header h1 {
   padding-bottom: 10px;
 }
 
+.genre-title {
+  color: var(--white-lavander);
+  text-shadow: 3px 2px 2px black;
+}
+
 .form-image {
   color: var(--white-lavander);
   text-shadow: 3px 2px 2px black;

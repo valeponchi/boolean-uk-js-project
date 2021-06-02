@@ -89,14 +89,7 @@ function getFilmInfo() {
 
     });
 }
-//takes each ugly film element and transforms it into a nice one: 
-function niceFilmsFromAPIinState() {
-  state.uglyFilmsFromAPI.map(function (element) {
-    state.niceFilmsFromAPI =  transformUglyFilmAPI(element)
-    console.log(`state.niceFilmsFromAPI: `, state.niceFilmsFromAPI);
-    //NOW WE HAVE A NICE AND ORGANISED LIST OF DATA FETCHED FROM THE API
-  })
-}
+
 //takes ugly-data from API and organise it in better way.
 function transformUglyFilmAPI(uglyFilmAPI) {
   let nicelyTransformedFilm = {
@@ -108,10 +101,7 @@ function transformUglyFilmAPI(uglyFilmAPI) {
    description: uglyFilmAPI.description,
    director: uglyFilmAPI.director
   }
-   for (const key in uglyFilmAPI) {
-        const value = uglyFilmAPI[key] 
-  
-        }
+
   return nicelyTransformedFilm
 }
 
@@ -151,6 +141,37 @@ function createForm(films) {
    filmTitleSelectEl.append(filmTitleType)
   }
 
+  //FILM GENRE 
+  let genreLabel = document.createElement(`label`)
+  genreLabel.setAttribute(`for`, `genre`)
+  let genreLabelH3 = document.createElement(`h3`)
+  genreLabelH3.setAttribute(`class`, `genre-title`)
+  genreLabelH3.innerText = "Select genre: "
+  
+  // 📌
+  let genreSelectEl = document.createElement(`select`)
+  genreSelectEl.setAttribute(`name`, `genre`)
+  genreSelectEl.setAttribute(`id`, `genre`)
+
+  let genreRomanceOption = document.createElement(`option`)
+  genreRomanceOption.setAttribute(`value`, `romance`)
+  genreRomanceOption.innerText = "Romance"
+  
+  let genreActionOption = document.createElement(`option`)
+  genreActionOption.setAttribute(`value`, `action`)
+  genreActionOption.innerText = "Action"
+
+  let genreComedyOption = document.createElement(`option`)
+  genreComedyOption.setAttribute(`value`, `comedy`)
+  genreComedyOption.innerText = "Comedy"
+
+  let genreMagicOption = document.createElement(`option`)
+  genreMagicOption.setAttribute(`value`, `magic`)
+  genreMagicOption.innerText = "Magic"
+
+
+
+
   //IMAGE:
   let imageLabel = document.createElement(`label`);
   imageLabel.setAttribute(`for`, `form-image`);
@@ -164,7 +185,7 @@ function createForm(films) {
   imageInput.setAttribute(`name`, `form-image`);
   imageInput.setAttribute(`type`, `url`);
   imageInput.required = true
-  imageInput.setAttribute(`placeholder`, `image URL`);
+  imageInput.setAttribute(`placeholder`, `Image URL`);
 
 
   //CONTENT:
@@ -175,30 +196,43 @@ function createForm(films) {
   labelCommentH3.setAttribute(`class`, `form-comment`)
   labelCommentH3.innerText = "Comment:";
 
-  let inputComment = document.createElement(`input`);
+  let inputComment = document.createElement(`textarea`);
   inputComment.setAttribute(`id`, `form-comment`);
   inputComment.setAttribute(`name`, `form-comment`);
   inputComment.setAttribute(`type`, `text`);
-  inputComment.required = true;
   inputComment.setAttribute(`placeholder`, `write comment here..`);
+  inputComment.setAttribute(`rows`, `4`)
+  inputComment.setAttribute(`cols`, `20`)
+  inputComment.required = true;
 
-
+  //CREATE POST BUTTON
   let formBtn = document.createElement(`button`)
   formBtn.setAttribute(`class`, `form-btn`)
   formBtn.innerText = "CREATE"
 
   //APPEND:
   filmTitleLabelEl.append(filmTitleLabelH3)
+
+  genreLabel.append(genreLabelH3)
+  genreSelectEl.append(genreRomanceOption,
+    genreActionOption,
+    genreComedyOption,
+    genreMagicOption) //append here the options
   labelComment.append(labelCommentH3)
   imageLabel.append(imageLabelH3)
 
   formEl.append(
     filmTitleLabelEl,
     filmTitleSelectEl,
+    genreLabel,
+    genreSelectEl,
+
     imageLabel,
     imageInput,
+
     labelCommentH3,
     inputComment,
+
     formBtn
   )
 
@@ -289,4 +323,5 @@ function createUserAccount(name) {
 //   },
 // };
 // renderCard(singlePost3);
-// >>>>>>> master
+
+
