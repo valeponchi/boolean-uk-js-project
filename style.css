@@ -142,14 +142,17 @@ header h1 {
 }
 
 
-.mainrendersection {
+.main-render-section {
+
+}
+
+.journaUlList{
   display: grid;
   grid-template-columns: repeat(auto-fit, 300px);
   background-color: #00808040;
   gap: 20px;
   padding: 20px;
 }
-
 .journallist {
   list-style: none;
   width: 300px;
