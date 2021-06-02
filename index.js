@@ -4,8 +4,17 @@
 
 // some css is already added, feel free to change it
 
+
+//GENERAL VARIABLES:
+const headerEl = document.querySelector("header");
+const asideEl = document.querySelector(".aside");
+const mainEl = document.querySelector(".main");
+const mainRenderSection = document.querySelector(".mainrendersection");
+
+//STATE:
 let state = {
-  users: [
+  users: 
+  [
     {
       id: 1,
       name: "Valentina",
@@ -15,109 +24,191 @@ let state = {
       name: "Linlin",
     },
   ],
-  posts: [
+  posts: 
+  [
     {
       id: 1,
       userId: 1,
-      postTitle: "My favourite Anime",
+      postTitle: "",
       image: "",
-      genre: "romance/action/funny/",
-      content: "I really loved FullMetal Alchimist",
-      animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
-      rating: 3, //3/5 star star star,
-      animeInfo: {
-        title: "",
+      genre: "",
+      comment: "",
+      // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+      rating: 0, // 3/5 star star star,
+      animeInfo: 
+      {
+        title: "", 
         originalTitle: "",
         director: "",
         description: "",
       },
     },
   ],
+
+  niceFilmsFromAPI: [],
+
+  activeUser: {
+    id: "",
+    name: "",
+  },
 };
 
-const headerEl = document.querySelector("header");
-const asideEl = document.querySelector(".aside");
-const mainEl = document.querySelector(".main");
-const mainRenderSection = document.querySelector(".mainrendersection");
 
 render();
 
+//RENDER FUNCTION:
 function render() {
+  //users section
   getUserInfo().then(function (accounts) {
-    console.log(accounts);
+    console.log(`fetch users: `,accounts);
     renderUserAccount(accounts);
-    // createForm();
   });
+  
+  //films-form section
+  getFilmInfo().then(function(){
+    createForm(state.niceFilmsFromAPI);
+  })
 }
 
-// this is to get user infomation
-function getUserInfo() {
-  return fetch("http://localhost:3000/users").then(function (resp) {
-    return resp.json();
-  });
+
+//FILM DATA
+function getFilmInfo() {
+  let uglyFilmsData = {}
+
+  return fetch(`https://ghibliapi.herokuapp.com/films/`)
+    .then(function (resp) {
+      return resp.json();
+    })
+    .then(function (filmsFromAPI) {
+      uglyFilmsData = filmsFromAPI
+      console.log(`Ugly Films Data from API: `, uglyFilmsData);
+      state.niceFilmsFromAPI = uglyFilmsData.map(function (element) {
+        return transformUglyFilmAPI(element)
+      })
+      console.log(`state.niceFilmsFromAPI: `, state.niceFilmsFromAPI);
+
+    });
 }
 
-//this is to render user account in the header like instalgram
-function renderUserAccount(accounts) {
-  accounts.map(function (account) {
-    createUserAccount(account.name);
-  });
+//takes ugly-data from API and organise it in better way.
+function transformUglyFilmAPI(uglyFilmAPI) {
+  let nicelyTransformedFilm = {
+   id: uglyFilmAPI.id,
+   title: uglyFilmAPI.title,
+   originalTitle: uglyFilmAPI.original_title,
+   characters: uglyFilmAPI.people,
+   releaseDate: uglyFilmAPI.release_date,
+   description: uglyFilmAPI.description,
+   director: uglyFilmAPI.director
+  }
+
+  return nicelyTransformedFilm
 }
 
-// create a single user on the header
-function createUserAccount(name) {
-  let userAccountdivEl = document.createElement("div");
-  userAccountdivEl.className = "userdiv";
 
-  let userSpanName = document.createElement("span");
-  userSpanName.innerText = name;
 
-  userAccountdivEl.append(userSpanName);
-  headerEl.append(userAccountdivEl);
-}
+//ASIDE FORM FUNCTION:
+function createForm(films) {
+  //FORM TITLE:
+  let formTitle = document.createElement(`h2`)
+  formTitle.setAttribute(`class`, `form-title`)
+  formTitle.innerText = "Create your journal entry:"
 
-// create a form in the aside
-
-function createForm() {
+  //FORM:
   let formEl = document.createElement(`form`);
-  formEl.setAttribute(`class`, `journal-form`);
+  formEl.setAttribute(`class`, `form`)
+  formEl.setAttribute(`id`, `form`);
+  // formEl.setAttribute(`autocomplete`, `off`);
 
-  //TITLE:
-  let labelPostTitle = document.createElement(`label`);
-  labelPostTitle.setAttribute(`for`, `post-title`);
-  labelPostTitle.innerText = "Title:";
+  //FILM TITLE:
+  let filmTitleLabelEl = document.createElement(`label`);
+  filmTitleLabelEl.setAttribute(`for`, `post-title`);
+  let filmTitleLabelH3 = document.createElement(`h3`)
+  filmTitleLabelH3.setAttribute(`class`, `pick-a-title`)
+  filmTitleLabelH3.innerText = "Pick a film title: ";
 
-  let inputPostTitle = document.createElement(`input`);
-  inputPostTitle.setAttribute(`id`, `post-title`);
-  inputPostTitle.setAttribute(`name`, `post-title`);
-  inputPostTitle.setAttribute(`type`, `text`);
-  inputPostTitle.required = true;
+  let filmTitleSelectEl = document.createElement(`select`);
+  filmTitleSelectEl.setAttribute(`name`, `post-title`);
+  filmTitleSelectEl.setAttribute(`id`, `post-title`);
+
+  for (const film of films) {
+   let title = film.title
+   let filmTitleType = document.createElement(`option`)
+   filmTitleType.setAttribute(`value`, title)
+   filmTitleType.innerText = title
+   filmTitleType.required = true
+
+   filmTitleSelectEl.append(filmTitleType)
+  }
+
+  //FILM GENRE 
+  let genreLabel = document.createElement(`label`)
+  genreLabel.setAttribute(`for`, `genre`)
+  let genreLabelH3 = document.createElement(`h3`)
+  genreLabelH3.setAttribute(`class`, `genre-title`)
+  genreLabelH3.innerText = "Select genre: "
+  
+  // 📌
+  let genreSelectEl = document.createElement(`select`)
+  genreSelectEl.setAttribute(`name`, `genre`)
+  genreSelectEl.setAttribute(`id`, `genre`)
+
+  let genreRomanceOption = document.createElement(`option`)
+  genreRomanceOption.setAttribute(`value`, `romance`)
+  genreRomanceOption.innerText = "Romance"
+  
+  let genreActionOption = document.createElement(`option`)
+  genreActionOption.setAttribute(`value`, `action`)
+  genreActionOption.innerText = "Action"
+
+  let genreComedyOption = document.createElement(`option`)
+  genreComedyOption.setAttribute(`value`, `comedy`)
+  genreComedyOption.innerText = "Comedy"
+
+  let genreMagicOption = document.createElement(`option`)
+  genreMagicOption.setAttribute(`value`, `magic`)
+  genreMagicOption.innerText = "Magic"
+
+
+
 
   //IMAGE:
-  let imageEl = document.createElement(`img`);
-  imageEl.setAttribute(`class`, `post-image`);
-  imageEl.setAttribute(`src`, ``); // TO WRITE WHAT IS NEEDED HERE
-  imageEl.setAttribute(`alt`, `post image`);
+  let imageLabel = document.createElement(`label`);
+  imageLabel.setAttribute(`for`, `form-image`);
+  let imageLabelH3 = document.createElement(`h3`)
+  imageLabelH3.setAttribute(`class`, `form-image`)
+  imageLabelH3.innerText = "Comment:";
+  imageLabelH3.innerText = "Image: "
 
-  //COMMENT:
+  let imageInput = document.createElement(`input`)
+  imageInput.setAttribute(`id`, `form-image`);
+  imageInput.setAttribute(`name`, `form-image`);
+  imageInput.setAttribute(`type`, `url`);
+  imageInput.required = true
+  imageInput.setAttribute(`placeholder`, `Image URL`);
+
+
+  //CONTENT:
   let labelComment = document.createElement(`label`);
-  labelComment.setAttribute(`for`, `post-commnet`);
-  labelComment.innerText = "Comment:";
+  labelComment.setAttribute(`class`, `form-comment`)
+  labelComment.setAttribute(`for`, `form-comment`);
+  let labelCommentH3 = document.createElement(`h3`)
+  labelCommentH3.setAttribute(`class`, `form-comment`)
+  labelCommentH3.innerText = "Comment:";
 
-  let inputComment = document.createElement(`input`);
-  inputComment.setAttribute(`id`, `post-comment`);
-  inputComment.setAttribute(`name`, `post-comment`);
+  let inputComment = document.createElement(`textarea`);
+  inputComment.setAttribute(`id`, `form-comment`);
+  inputComment.setAttribute(`name`, `form-comment`);
   inputComment.setAttribute(`type`, `text`);
+  inputComment.setAttribute(`placeholder`, `write comment here..`);
+  inputComment.setAttribute(`rows`, `4`)
+  inputComment.setAttribute(`cols`, `20`)
   inputComment.required = true;
 
-  let labelAnimeId = document.createElement(`label`);
-  labelAnimeId.setAttribute(`for`, `anime-id`);
-  labelAnimeId.innerText = "Anime Id: ";
-
-  let inputAnimeId = document.createElement(`input`);
-  inputAnimeId.setAttribute(`id`, `anime-id`);
-  inputAnimeId.setAttribute(`name`, `anime-id`);
-  inputAnimeId.setAttribute(`type`, `text`);
+  //CREATE POST BUTTON
+  let formBtn = document.createElement(`button`)
+  formBtn.setAttribute(`class`, `form-btn`)
+  formBtn.innerText = "CREATE"
 
   //APPEND:
   formEl.append(
@@ -151,28 +242,30 @@ function createForm() {
 //       console.log(resp);
 //     });
 // }
+  filmTitleLabelEl.append(filmTitleLabelH3)
 
-// getUserInfo(idinfo).then(function (filmInfo) {
+  genreLabel.append(genreLabelH3)
+  genreSelectEl.append(genreRomanceOption,
+    genreActionOption,
+    genreComedyOption,
+    genreMagicOption) 
+  labelComment.append(labelCommentH3)
+  imageLabel.append(imageLabelH3)
 
-//   let post = {
-//     id: 1,
-//     userId: 1, //todo
-//     postTitle: form.post-title.value,
-//     image:form. ,
-//     genre: all stuff from form ,
-//     content: form.content,
-//     animeId: form.animeid etc,
-//     rating: , //3/5 star star star,
-//     animeInfo: ''
-//   }
-//   post.animeInfo = filmInfo;
+  formEl.append(
+    filmTitleLabelEl,
+    filmTitleSelectEl,
+    genreLabel,
+    genreSelectEl,
 
-//   post this post to our own server
+    imageLabel,
+    imageInput,
 
-//   state.posts.push(post)
+    labelCommentH3,
+    inputComment,
 
-//   renderCards(state.posts)
-// });
+    formBtn
+  )
 
 // form(data from server) inside the form we can get the nicefilmapi, genre, title, etc then post to server/ state.posts/ then renderposts
 
@@ -301,3 +394,92 @@ function renderCard(formInfo, selectedFilm) {
   );
   mainRenderSection.append(journalList);
 }
+  asideEl.append(formTitle, formEl);
+  
+  //EVENT LISTENER ON THE FORM
+}
+
+//FETCH USERS
+function getUserInfo() {
+  return fetch("http://localhost:3000/users").then(function (resp) {
+    return resp.json();
+  });
+}
+
+//USERS ACCOUNT FUNCTIONS:
+function renderUserAccount(accounts) {
+  accounts.map(function (account) {
+    createUserAccount(account.name);
+  });
+}
+
+function createUserAccount(name) {
+  let userAccountdivEl = document.createElement("div");
+  userAccountdivEl.className = "userdiv";
+
+  let userSpanName = document.createElement("span");
+  userSpanName.innerText = name;
+
+  userAccountdivEl.append(userSpanName);
+  headerEl.append(userAccountdivEl);
+}
+
+//   journalList.append(
+//     journalReviewTitle,
+//     ratingSection,
+//     journalTitle,
+//     journalContent,
+//     journalBtns,
+//     filmPicture,
+//     filmDescription
+//   );
+//   mainRenderSection.append(journalList);
+// }
+
+// // postTitle: "My favourite Anime",
+// // image: "", should be a url
+// // genre: "romance/action/funny/",
+// // content: "I really loved FullMetal Alchimist",
+// // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+// // rating: 3, //3/5 star star star,
+
+// let singlePost = {
+//   id: 1,
+//   userId: 1,
+//   postTitle: "My favourite Anime",
+//   genre: "comedy",
+//   image: "https://cdn.wallpapersafari.com/8/37/kpetxK.png",
+//   content: "I really loved FullMetal Alchimist",
+//   animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+//   rating: 3,
+//   animeInfo: {
+//     title: "Castle in the Sky",
+//     originalTitle: "天空の城ラピュタ",
+//     director: "Hayao Miyazaki",
+//     description:
+//       "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world.",
+//   },
+// };
+
+// renderCard(singlePost);
+
+// let singlePost3 = {
+//   id: 1,
+//   userId: 1,
+//   postTitle: "My favourite Anime",
+//   genre: "comedy",
+//   image: "https://cdn.wallpapersafari.com/8/37/kpetxK.png",
+//   content: "I really loved FullMetal Alchimist",
+//   animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+//   rating: 2,
+//   animeInfo: {
+//     title: "Castle in the Sky",
+//     originalTitle: "天空の城ラピュタ",
+//     director: "Hayao Miyazaki",
+//     description:
+//       "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world.",
+//   },
+// };
+// renderCard(singlePost3);
+
+
