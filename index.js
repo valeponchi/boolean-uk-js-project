@@ -138,14 +138,6 @@ function createForm(films) {
   let genreLabelH3 = document.createElement(`h3`);
   genreLabelH3.setAttribute(`class`, `genre-title`);
   genreLabelH3.innerText = "Select genre: ";
-
-  //FILM GENRE 
-  let genreLabel = document.createElement(`label`)
-  genreLabel.setAttribute(`for`, `genre`)
-  let genreLabelH3 = document.createElement(`h3`)
-  genreLabelH3.setAttribute(`class`, `genre-title`)
-  genreLabelH3.innerText = "Select genre: "
-  
   
   let genreSelectEl = document.createElement(`select`)
   genreSelectEl.setAttribute(`name`, `genre`)
@@ -158,18 +150,6 @@ function createForm(films) {
   let genreActionOption = document.createElement(`option`)
   genreActionOption.setAttribute(`value`, `action`)
   genreActionOption.innerText = "Action"
-
-  let genreSelectEl = document.createElement(`select`);
-  genreSelectEl.setAttribute(`name`, `genre`);
-  genreSelectEl.setAttribute(`id`, `genre`);
-
-  let genreRomanceOption = document.createElement(`option`);
-  genreRomanceOption.setAttribute(`value`, `romance`);
-  genreRomanceOption.innerText = "Romance";
-
-  let genreActionOption = document.createElement(`option`);
-  genreActionOption.setAttribute(`value`, `action`);
-  genreActionOption.innerText = "Action";
 
   let genreComedyOption = document.createElement(`option`);
   genreComedyOption.setAttribute(`value`, `comedy`);
