@@ -10,7 +10,7 @@ const headerEl = document.querySelector("header");
 const asideEl = document.querySelector(".aside");
 const mainEl = document.querySelector(".main");
 const mainRenderSection = document.querySelector(".mainrendersection");
-
+const journaUlList = document.querySelector('.journalUlList')
 //STATE:
 let state = {
   users: 
@@ -225,10 +225,30 @@ function createForm(films) {
   // comment: "I really loved FullMetal Alchimist",
   // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
   // rating: 1,
-  formEl
-    .addEventListener
+  formEl.addEventListener(`submit`, function(e) {
+    e.preventDefault()
+    
+    let foundFilm = state.niceFilmsFromAPI.find(film => film.title === filmTitleSelectEl.value)
+
+    let newPost = {
+      id: foundFilm.id,
+      userId: "",//we need to figure our how to make this the selected User Id
+      image: imageInput.value,
+      genre: genreSelectEl.value,
+      content: inputComment.value,
+      // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+      rating: 3,
+      animeInfo: {
+        title: foundFilm.title,
+        originalTitle: foundFilm.originalTitle, 
+        director: foundFilm.director,
+        description: foundFilm.description,
+      },
+    };
+    renderCard(posts, filmTitleSelectEl.value)
+  })
     // getUserInfo(idinfo).then(function (filmInfo)
-    ();
+  
 }
 // idinfo = form.animeid
 // this function is inside the form
@@ -273,37 +293,23 @@ function createForm(films) {
 // or we dont need to renderposts in here, can just render one card based on the form
 // use filter to find the data we look for
 
-let filmName = formel.name of the select .value;
-let selectedFilm = films.filter(function (film) {
-  return film.title === filmName;
-});
+// let filmName = formel.name of the select .value;
+// let selectedFilm = films.filter(function (film) {
+//   return film.title === filmName;
+// });
 
 function renderCards(posts,selectedFilm) {
   posts.map(renderCard);
 }
 
-let singlePost = {
-  id: 1,
-  userId: 1,
-  image:
-    "https://www.plantemoran.com/-/media/images/insights-images/2018/04/thinking-about-becoming-a-smart-city.jpg?h=704&w=1100&hash=D5677DCC5CE6DF0C080CFAB8CC3EB10E",
-  genre: "romance",
-  content: "I really loved FullMetal Alchimist",
-  // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
-  rating: 3,
-  animeInfo: {
-    title: "city in the sky",
-    originalTitle: "hashashashsa",
-    director: "agsasgasgasgas",
-    description: "asgaghhasgsa",
-  },
-};
 
-// renderCard(singlePost);
+
+
 
 //   post this post to our own server
 
 function renderCard(formInfo, selectedFilm) {
+ 
   let journalList = document.createElement("li");
   journalList.className = "journallist";
 
@@ -392,12 +398,10 @@ function renderCard(formInfo, selectedFilm) {
     filmPicture,
     filmDescription
   );
-  mainRenderSection.append(journalList);
+  journaUlList.append(journalList)
 }
   asideEl.append(formTitle, formEl);
   
-  //EVENT LISTENER ON THE FORM
-}
 
 //FETCH USERS
 function getUserInfo() {
