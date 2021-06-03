@@ -10,10 +10,10 @@ html {
   --primary-teal-half-transparent: #40e0d080;
   --primary-teal-full-transparent: #00808020;
   --primary-light-cyan: lightcyan;
-
+  --hover-user-color: darkslateblue;
   --secondary-salmon: lightsalmon;
 
-  --white-lavander: lavender; 
+  --white-lavander: lavender;
 }
 
 body {
@@ -26,8 +26,9 @@ body {
   grid-template:
     "header header" auto
     "aside main" 1fr/
-    1fr 3fr;
-  gap: 20px;
+    1fr 3.5fr;
+  gap: 10px;
+
 }
 
 /* HEADER SECTION  */
@@ -56,10 +57,22 @@ header h1 {
   background-color: var(--primary-teal);
   display: grid;
   justify-content: center;
+  cursor: pointer;
+}
+
+.active-user {
+  color: var(--white-lavander);
+  width: 130px;
+  border-radius: 15px;
+  padding: 10px 20px;
+  background-color: var(--secondary-salmon);
+  display: grid;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .user-div span {
-  font-size: larger;
+  font-size: 20px;
 }
 
 /* MAIN SECTION */
@@ -107,6 +120,11 @@ header h1 {
   color: var(--white-lavander);
   text-shadow: 3px 2px 2px black;
 }
+.rating-lable {
+  color: var(--white-lavander);
+  text-shadow: 3px 2px 2px black;
+  font-size: larger;
+}
 
 .form-btn {
   background-color: var(--primary-teal-half-transparent);
@@ -149,24 +167,14 @@ header h1 {
   margin: 0px 10px 0px 10px;
 }
 
+.journal-Ul-List {
 
-/* JOURNAL  */
-.film-name {
-  font-weight: 900;
-  font-size: 1.4rem;
-}
-
-.original-name {
-  font-size: 0.8rem;
-  padding: 5px 0;
-}
-
-.journal-ul-list {
   display: grid;
   grid-auto-flow: column;
   background-color: #00808040;
   gap: 20px;
   padding: 20px;
+  background-color: #ffebcd90;
 }
 
 .journal-list {
@@ -236,9 +244,15 @@ header h1 {
   margin: 5px;
   border-radius: 2px;
 }
+.journalContent form {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+}
 
-.film-description {
-  background-color: #e6e6fa90;
+.filmDescription {
+  background-color: #d8bfd850;
+
   padding: 5px;
   color: var(--primary-teal);
 
@@ -250,5 +264,29 @@ header h1 {
   font-weight: lighter;
 }
 
+.buttonsection button:hover {
+  filter: brightness(1.5);
+  transition: 0.2s;
+  transform: scale(1.05);
+}
+.edit_submitBTn {
+  background-color: darkcyan;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: aliceblue;
+  margin-left: 10px;
+}
+.clear_btn {
+  background-color: lightpink;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: black;
+  margin-left: 10px;
+}
 
-
+.clear_btn:hover {
+  background-color: lavenderblush;
+  transition: 0.2s;
+}

@@ -13,44 +13,18 @@
     {
       "id": "2baf70d1-42bb-4437-b551-e5fed5a87abe",
       "userId": "",
-      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
       "genre": "action",
-      "content": "s",
-      "rating": "3",
+      "content": "sagshdajg",
+      "rating": 4,
+
       "animeInfo": {
         "title": "Castle in the Sky",
         "originalTitle": "天空の城ラピュタ",
         "director": "Hayao Miyazaki",
         "description": "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world."
       }
-    },
-    {
-      "id": "90b72513-afd4-4570-84de-a56c312fdf81",
-      "userId": "",
-      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-      "genre": "romance",
-      "content": "yay",
-      "rating": "5",
-      "animeInfo": {
-        "title": "The Cat Returns",
-        "originalTitle": "猫の恩返し",
-        "director": "Hiroyuki Morita",
-        "description": "Haru, a schoolgirl bored by her ordinary routine, saves the life of an unusual cat and suddenly her world is transformed beyond anything she ever imagined. The Cat King rewards her good deed with a flurry of presents, including a very shocking proposal of marriage to his son! Haru embarks on an unexpected journey to the Kingdom of Cats where her eyes are opened to a whole other world."
-      }
-    },
-    {
-      "id": "67405111-37a5-438f-81cc-4666af60c800",
-      "userId": "",
-      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-      "genre": "comedy",
-      "content": "ss",
-      "rating": "1",
-      "animeInfo": {
-        "title": "The Wind Rises",
-        "originalTitle": "風立ちぬ",
-        "director": "Hayao Miyazaki",
-        "description": "A lifelong love of flight inspires Japanese aviation engineer Jiro Horikoshi, whose storied career includes the creation of the A-6M World War II fighter plane."
-      }
+
     }
   ]
 }
