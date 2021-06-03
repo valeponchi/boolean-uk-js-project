@@ -1,3 +1,10 @@
+// 1 create header which includes the user account,
+// 2 create a filter and form on the aside
+// 3 render in the main section, in this way we only render main section which is easier to read
+
+// some css is already added, feel free to change it
+
+//GENERAL VARIABLES:
 const headerEl = document.querySelector("header");
 const asideEl = document.querySelector(".aside");
 const mainEl = document.querySelector(".main");
@@ -29,7 +36,6 @@ let state = {
   },
   checkedGenre: [],
 };
-
 renderCheckbox();
 renderAside();
 
