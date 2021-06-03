@@ -20,13 +20,14 @@ body {
   background-image: url(https://www.kolpaper.com/wp-content/uploads/2021/03/HD-Spirited-Away-Wallpaper.jpg);
   overflow: scroll;
   background-size: cover;
+  /* margin: 0 20px; */
 
   display: grid;
   grid-template:
     "header header" auto
     "aside main" 1fr/
-    1fr 2fr;
-    gap: 10px;
+    1fr 3fr;
+  gap: 20px;
 }
 
 /* HEADER SECTION  */
@@ -69,6 +70,7 @@ header h1 {
 /* ASIDE SECTION */
 .aside {
   grid-area: aside;
+  margin: 0 20px;
 }
 
 /* FORM  */
@@ -107,12 +109,18 @@ header h1 {
 }
 
 .form-btn {
+  background-color: var(--primary-teal-half-transparent);
+  color: var(--white-lavander);
   border: 3px solid var(--primary-teal);
   border-radius: 5px;
-  background-color: var(--secondary-salmon);
-  color: var(--primary-teal);
+
   font-weight: 600;
   padding: 10px;
+}
+
+.form-btn:hover {
+  color: var(--white-lavander);
+  background-color:var(--primary-teal);
 }
 
 /* checkboxes  */
@@ -120,16 +128,21 @@ header h1 {
   background-color: var(--primary-teal-half-transparent);
   padding: 10px;
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 10% 75%;
+  gap: 10px;
   align-items: center;
-  color: var(--primary-light-cyan);
+  color: var(--primary-teal);
 }
 
 .checkbox-div p {
-  border: dashed 2px var(--primary-light-cyan);
+  background-color: var(--primary-teal-half-transparent);
+  border: solid 2px var(--primary-light-cyan);
+  border-radius: 5px;
+  
   padding: 5px;
+  font-size: 1.2rem;
+  font-weight: 700;
   text-align: center;
-  background-color: var(--secondary-salmon);
 }
 
 .checkbox-div label {
@@ -143,9 +156,14 @@ header h1 {
   font-size: 1.4rem;
 }
 
+.original-name {
+  font-size: 0.8rem;
+  padding: 5px 0;
+}
+
 .journal-ul-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 300px);
+  grid-auto-flow: column;
   background-color: #00808040;
   gap: 20px;
   padding: 20px;
@@ -154,14 +172,31 @@ header h1 {
 .journal-list {
   list-style: none;
   width: 300px;
-  height: 500px;
-  background-color: whitesmoke;
+  height: auto;
+  background-color: rgba(209, 241, 239, 0.918);
   padding: 20px;
   border-radius: 20px;
-  overflow: scroll;
-  display: grid;
   gap: 10px;
 }
+
+.delete-btn {
+  background-color: var(--primary-teal-full-transparent);
+  color: var(--primary-teal);
+  border: 1px solid var(--primary-teal);
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  font-weight: 700;
+  padding: 5px;
+  margin: 10px 0;
+}
+
+.delete-btn:hover {
+  background-color: var(--primary-teal);
+  color: var(--white-lavander);
+}
+
 
 .rate-div {
   background-color: #e6e6fa90;
@@ -188,28 +223,25 @@ header h1 {
   width: 260px;
   height: 180px;
   object-fit: cover;
+  border-radius: 2px;
 }
 
 .rating-star {
-  width: 35px;
-  height: 35px;
-}
-
-.title-of-journal {
-  color: coral;
+  width: 20px;
 }
 
 .journal-content {
-  background-color: #ff634720;
+  background-color: var(--primary-teal-full-transparent);
   padding: 5px;
+  margin: 5px;
+  border-radius: 2px;
 }
 
 .film-description {
-  background-color: #d8bfd850;
+  background-color: #e6e6fa90;
   padding: 5px;
-  height: 100px;
-  overflow: scroll;
-  color: tomato;
+  color: var(--primary-teal);
+
   font-weight: bolder;
 }
 
@@ -218,26 +250,5 @@ header h1 {
   font-weight: lighter;
 }
 
-.button-section {
-  display: grid;
-  grid-template-columns: 44% 44%;
-  gap: 30px;
-}
 
-.button-section button {
-  background-color: slateblue;
-  border: none;
-  padding: 5px 20px;
-  border-radius: 5px;
-  color: aliceblue;
-}
 
-.button-section .deleteBTn {
-  background-color: tomato;
-}
-
-.button-section button:hover {
-  filter: brightness(1.5);
-  transition: 0.2s;
-  transform: scale(1.05);
-}

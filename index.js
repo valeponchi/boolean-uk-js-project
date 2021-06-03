@@ -17,23 +17,7 @@ let state = {
       name: "Linlin",
     },
   ],
-  posts: [
-    // {
-    //   id: 1,
-    //   userId: 1,
-    //   postTitle: "",
-    //   image: "",
-    //   genre: "",
-    //   comment: "",
-    //   rating: 0, // 3/5 star star star,
-    //   animeInfo: {
-    //     title: "",
-    //     originalTitle: "",
-    //     director: "",
-    //     description: "",
-    //   },
-    // },
-  ],
+  posts: [],
 
   niceFilmsFromAPI: [],
 
@@ -306,10 +290,11 @@ function renderCard(post) {
 
   let spanFilmName = document.createElement("span");
   spanFilmName.className = "film-name";
-  spanFilmName.innerText = post.animeInfo.title;
+  spanFilmName.innerText = `${post.animeInfo.title}\n`;
 
   let originalTitle = document.createElement("p");
-  originalTitle.innerText = `Original name:\n ${post.animeInfo.originalTitle}`;
+  originalTitle.setAttribute(`class`, `original-name`)
+  originalTitle.innerText = `Original name: ${post.animeInfo.originalTitle}`;
   
   //APPEND
   journalReviewTitle.append(spanFilmName, originalTitle);
@@ -325,7 +310,7 @@ function renderCard(post) {
   svgEl.setAttribute("class", "rating-star");
   
   if (post.rating >= 3) {
-    svgEl.setAttribute("src", "image/rate.svg");
+    svgEl.setAttribute("src", "image/thumbs-up.svg");
 
     ratingScore.append(svgEl);
   }
@@ -341,29 +326,22 @@ function renderCard(post) {
   let journalBtnsDiv = document.createElement("div");
   journalBtnsDiv.className = "button-section";
 
-  let deleteBTn = document.createElement("button");
-  deleteBTn.className = "delete-btn";
-  deleteBTn.innerText = "DELETE";
+  let deleteBtn = document.createElement("button");
+  deleteBtn.className = "delete-btn";
+  deleteBtn.innerText = "DELETE";
   //📌 EVENT LISTENER
   // deleteBTn.addEventListener(`click`, function() {
+  //   fetch(`http://localhost:3000/posts/${post.id}`, {
+  //     method: `DELETE`})
 
+  //   // render()
   // })
 
-  let editBTn = document.createElement("button");
-  editBTn.innerText = "EDIT";
-  //📌 EVENT LISTENER
-  
-  
-  //APPEND
-  journalBtnsDiv.append(editBTn, deleteBTn);
-  
   //JOURNAL CONTENT
   let journalContent = document.createElement("p");
   journalContent.className = "journal-content";
-
   journalContent.innerText = post.content;
   
-
   //FILM IMG
   let filmPicture = document.createElement("img");
   filmPicture.setAttribute("class", "film-picture");
@@ -381,6 +359,7 @@ function renderCard(post) {
   filmDescription.append(spanDescription);
 
   journalList.append(
+    deleteBtn,
     journalReviewTitle,
     ratingSection,
     journalContent,
@@ -416,6 +395,3 @@ function createUserAccount(name) {
   userAccountdivEl.append(userSpanName);
   headerEl.append(userAccountdivEl);
 }
-
-//posts are saved in the server but when I refresh the pg they disappear from the page. they are still in the server.
-//EDIT we need something that pops and the user can write on etc etc to get the new input value..
