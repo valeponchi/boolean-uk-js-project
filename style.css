@@ -10,25 +10,23 @@ html {
   --primary-teal-half-transparent: #40e0d080;
   --primary-teal-full-transparent: #00808020;
   --primary-light-cyan: lightcyan;
-  --hover-user-color: darkslateblue;
+
   --secondary-salmon: lightsalmon;
 
-  --white-lavander: lavender;
+  --white-lavander: lavender; 
 }
 
 body {
   background-image: url(https://www.kolpaper.com/wp-content/uploads/2021/03/HD-Spirited-Away-Wallpaper.jpg);
   overflow: scroll;
   background-size: cover;
-  /* margin: 0 20px; */
 
   display: grid;
   grid-template:
     "header header" auto
     "aside main" 1fr/
-    1fr 3.5fr;
-  gap: 10px;
-
+    1fr 3fr;
+    gap: 10px;
 }
 
 /* HEADER SECTION  */
@@ -57,33 +55,24 @@ header h1 {
   background-color: var(--primary-teal);
   display: grid;
   justify-content: center;
-  cursor: pointer;
-}
-
-.active-user {
-  color: var(--white-lavander);
-  width: 130px;
-  border-radius: 15px;
-  padding: 10px 20px;
-  background-color: var(--secondary-salmon);
-  display: grid;
-  justify-content: center;
-  cursor: pointer;
 }
 
 .user-div span {
-  font-size: 20px;
+  font-size: larger;
 }
+
+
 
 /* MAIN SECTION */
 .main {
   grid-area: main;
+  border: 2px solid rgb(243, 239, 9); /*to be DELETED AFTER APP WORKS*/
 }
 
 /* ASIDE SECTION */
 .aside {
   grid-area: aside;
-  margin: 0 20px;
+  /* border: 2px solid var(--primary-teal); */
 }
 
 /* FORM  */
@@ -93,6 +82,7 @@ header h1 {
   padding: 10px;
   border: 3px solid var(--white-lavander);
   border-radius: 10px;
+  shado
 }
 
 .form-title {
@@ -120,25 +110,14 @@ header h1 {
   color: var(--white-lavander);
   text-shadow: 3px 2px 2px black;
 }
-.rating-lable {
-  color: var(--white-lavander);
-  text-shadow: 3px 2px 2px black;
-  font-size: larger;
-}
 
 .form-btn {
-  background-color: var(--primary-teal-half-transparent);
-  color: var(--white-lavander);
   border: 3px solid var(--primary-teal);
   border-radius: 5px;
-
+  background-color: var(--secondary-salmon);
+  color: var(--primary-teal);
   font-weight: 600;
   padding: 10px;
-}
-
-.form-btn:hover {
-  color: var(--white-lavander);
-  background-color:var(--primary-teal);
 }
 
 /* checkboxes  */
@@ -146,67 +125,44 @@ header h1 {
   background-color: var(--primary-teal-half-transparent);
   padding: 10px;
   display: grid;
-  grid-template-columns: 10% 75%;
-  gap: 10px;
+  grid-template-columns: 25% 75%;
   align-items: center;
-  color: var(--primary-teal);
+  color: var(--primary-light-cyan);
 }
 
 .checkbox-div p {
-  background-color: var(--primary-teal-half-transparent);
-  border: solid 2px var(--primary-light-cyan);
-  border-radius: 5px;
-  
+  border: dashed 2px var(--primary-light-cyan);
   padding: 5px;
-  font-size: 1.2rem;
-  font-weight: 700;
   text-align: center;
+  background-color: var(--secondary-salmon);
 }
 
 .checkbox-div label {
   margin: 0px 10px 0px 10px;
 }
 
-.journal-Ul-List {
-
+.journal-Ul-List{
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, 300px);
   background-color: #00808040;
   gap: 20px;
   padding: 20px;
   background-color: #ffebcd90;
-}
 
-.journal-list {
+}
+.journallist {
   list-style: none;
   width: 300px;
-  height: auto;
-  background-color: rgba(209, 241, 239, 0.918);
+  height: 500px;
+  background-color: whitesmoke;
   padding: 20px;
   border-radius: 20px;
+  overflow: scroll;
+  display: grid;
   gap: 10px;
 }
 
-.delete-btn {
-  background-color: var(--primary-teal-full-transparent);
-  color: var(--primary-teal);
-  border: 1px solid var(--primary-teal);
-  border-radius: 5px;
-
-  cursor: pointer;
-
-  font-weight: 700;
-  padding: 5px;
-  margin: 10px 0;
-}
-
-.delete-btn:hover {
-  background-color: var(--primary-teal);
-  color: var(--white-lavander);
-}
-
-
-.rate-div {
+.ratediv {
   background-color: #e6e6fa90;
   display: grid;
   grid-template-columns: auto auto;
@@ -216,35 +172,32 @@ header h1 {
   padding: 0px 20px;
   color: teal;
 }
-
-.rating-score {
+.ratingScore {
   display: grid;
   grid-template-columns: auto auto;
   align-items: center;
 }
-.rate-div span {
+.ratediv span {
   font-weight: bolder;
   font-size: larger;
 }
-
-.film-picture {
+.filmpicture {
   width: 260px;
   height: 180px;
   object-fit: cover;
-  border-radius: 2px;
 }
-
-.rating-star {
-  width: 20px;
+.ratingstar {
+  width: 35px;
+  height: 35px;
 }
-
-.journal-content {
-  background-color: var(--primary-teal-full-transparent);
+.titleofjournal {
+  color: coral;
+}
+.journalContent {
+  background-color: #ff634720;
   padding: 5px;
-  margin: 5px;
-  border-radius: 2px;
 }
-.journalContent form {
+.journalContent form{
   display: grid;
   grid-template-columns: auto auto;
   align-items: center;
@@ -252,16 +205,30 @@ header h1 {
 
 .filmDescription {
   background-color: #d8bfd850;
-
   padding: 5px;
-  color: var(--primary-teal);
-
+  height: 60px;
+  overflow: scroll;
+  color: tomato;
   font-weight: bolder;
 }
-
-.film-description span {
+.filmDescription span {
   color: black;
   font-weight: lighter;
+}
+.buttonsection {
+  display: grid;
+  grid-template-columns: 44% 44%;
+  gap: 30px;
+}
+.buttonsection button {
+  background-color: slateblue;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: aliceblue;
+}
+.buttonsection .deleteBTn {
+  background-color: tomato;
 }
 
 .buttonsection button:hover {
@@ -269,7 +236,7 @@ header h1 {
   transition: 0.2s;
   transform: scale(1.05);
 }
-.edit_submitBTn {
+.edit_submitBTn{
   background-color: darkcyan;
   border: none;
   padding: 5px 20px;
@@ -277,16 +244,11 @@ header h1 {
   color: aliceblue;
   margin-left: 10px;
 }
-.clear_btn {
+.clear_btn{
   background-color: lightpink;
   border: none;
   padding: 5px 20px;
   border-radius: 5px;
   color: black;
   margin-left: 10px;
-}
-
-.clear_btn:hover {
-  background-color: lavenderblush;
-  transition: 0.2s;
 }

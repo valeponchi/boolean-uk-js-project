@@ -1,10 +1,12 @@
-//GENERAL VARIABLES:
 const headerEl = document.querySelector("header");
 const asideEl = document.querySelector(".aside");
 const mainEl = document.querySelector(".main");
 const mainRenderSection = document.querySelector(".mainrendersection");
 const journaUlList = document.querySelector(".journal-Ul-List");
 const checkboxSection = document.querySelector(".checkbox-section");
+const accountDivision = document.querySelector(".user-accounts");
+console.log(accountDivision);
+
 //STATE:
 let state = {
   users: [
@@ -27,16 +29,16 @@ let state = {
   },
   checkedGenre: [],
 };
+
 renderCheckbox();
-render();
+renderAside();
 
 //RENDER FUNCTION:
-function render() {
+function renderAside() {
   //users section
   getUserInfo().then(function (accounts) {
     console.log(`fetch users: `, accounts);
-    renderUserAccount(accounts);
-    renderPostsFromServer()
+    renderUserAccounts(accounts);
   });
 
   //films-form section
@@ -45,7 +47,7 @@ function render() {
   });
 }
 
-//FETCH FILM DATA
+//FILM DATA
 function getFilmInfo() {
   let uglyFilmsData = {};
 
@@ -105,54 +107,13 @@ function createForm(films) {
   //FORM TITLE:
   let formTitle = document.createElement(`h2`);
   formTitle.setAttribute(`class`, `form-title`);
-  formTitle.innerText = "Create your journal entry:";
+  formTitle.innerText = "Create Your Own Journal:";
 
   //FORM:
   let formEl = document.createElement(`form`);
   formEl.setAttribute(`class`, `form`);
   formEl.setAttribute(`id`, `form`);
   // formEl.setAttribute(`autocomplete`, `off`);
-
-  formEl.addEventListener(`submit`, function (e) {
-    e.preventDefault();
-
-    let foundFilm = state.niceFilmsFromAPI.find(
-      (film) => film.title === filmTitleSelectEl.value
-    );
-
-    let newPost = {
-      id: foundFilm.id,
-      userId: "", //we need to figure our how to make this the selected User Id
-      image: imageInput.value,
-      genre: genreSelectEl.value,
-      content: inputComment.value,
-      rating: rating.value,
-      animeInfo: {
-        title: foundFilm.title,
-        originalTitle: foundFilm.originalTitle,
-        director: foundFilm.director,
-        description: foundFilm.description,
-      },
-    };
-  
-    //SAVE NEWPOST INTO THE SERVER
-    fetch(`http://localhost:3000/posts`, {
-      method: `POST`,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newPost)
-    })
-    .then(function (response) {
-      return response.json()
-    })
-    //I RENDER THE PAGE WITH THE NEW POST
-    .then(function (newPostFromServer) {
-      renderCard(newPostFromServer);
-    })
-
-      formEl.reset()
-}) //event listener closing
 
   //FILM TITLE:
   let filmTitleLabelEl = document.createElement(`label`);
@@ -182,25 +143,19 @@ function createForm(films) {
   genreLabelH3.setAttribute(`class`, `genre-title`);
   genreLabelH3.innerText = "Select genre: ";
 
+  // 📌
   let genreSelectEl = document.createElement(`select`);
   genreSelectEl.setAttribute(`name`, `genre`);
   genreSelectEl.setAttribute(`id`, `genre`);
 
-  let genreRomanceOption = document.createElement(`option`);
-  genreRomanceOption.setAttribute(`value`, `romance`);
-  genreRomanceOption.innerText = "Romance";
+  let genreArray = [`Romance`, `Action`, `Comedy`, `Magic`];
 
-  let genreActionOption = document.createElement(`option`);
-  genreActionOption.setAttribute(`value`, `action`);
-  genreActionOption.innerText = "Action";
-
-  let genreComedyOption = document.createElement(`option`);
-  genreComedyOption.setAttribute(`value`, `comedy`);
-  genreComedyOption.innerText = "Comedy";
-
-  let genreMagicOption = document.createElement(`option`);
-  genreMagicOption.setAttribute(`value`, `magic`);
-  genreMagicOption.innerText = "Magic";
+  genreArray.map(function (selectedGenre) {
+    let genreRomanceOption = document.createElement(`option`);
+    genreRomanceOption.setAttribute(`value`, selectedGenre);
+    genreRomanceOption.innerText = selectedGenre;
+    genreSelectEl.append(genreRomanceOption);
+  });
 
   //IMAGE:
   let imageLabel = document.createElement(`label`);
@@ -218,25 +173,25 @@ function createForm(films) {
   imageInput.setAttribute(`placeholder`, `Image URL`);
 
   //rating
-  // let ratingLabel = document.createElement(`label`);
-  // ratingLabel.className = "rating-lable";
+  let ratingLabel = document.createElement(`label`);
+  ratingLabel.className = "rating-lable";
 
-  // ratingLabel.innerText = "Rate a Score: ";
+  ratingLabel.innerText = "Rate a Score: ";
 
-  // let ratingSelectEl = document.createElement(`select`);
-  // ratingSelectEl.setAttribute(`name`, `rating`);
-  // ratingSelectEl.setAttribute(`class`, `ratinng`);
+  let ratingSelectEl = document.createElement(`select`);
+  ratingSelectEl.setAttribute(`name`, `rating`);
+  ratingSelectEl.setAttribute(`class`, `ratinng`);
 
-  // let ratingArray = [1, 2, 3, 4, 5];
+  let ratingArray = [1, 2, 3, 4, 5];
 
-  // ratingArray.forEach(function (score) {
-  //   let scoreOption = document.createElement("option");
-  //   scoreOption.setAttribute(`value`, score);
-  //   scoreOption.innerText = score;
+  ratingArray.forEach(function (score) {
+    let scoreOption = document.createElement("option");
+    scoreOption.setAttribute(`value`, score);
+    scoreOption.innerText = score;
 
-  //   ratingSelectEl.append(scoreOption);
-  // });
-  // ratingLabel.append(ratingSelectEl);
+    ratingSelectEl.append(scoreOption);
+  });
+  ratingLabel.append(ratingSelectEl);
 
   //CONTENT:
   let labelComment = document.createElement(`label`);
@@ -244,31 +199,16 @@ function createForm(films) {
   labelComment.setAttribute(`for`, `form-comment`);
   let labelCommentH3 = document.createElement(`h3`);
   labelCommentH3.setAttribute(`class`, `form-comment`);
-  labelCommentH3.innerText = "Comment:";
+  labelCommentH3.innerText = "Body:";
 
   let inputComment = document.createElement(`textarea`);
   inputComment.setAttribute(`id`, `form-comment`);
   inputComment.setAttribute(`name`, `form-comment`);
   inputComment.setAttribute(`type`, `text`);
-  inputComment.setAttribute(`placeholder`, `write comment here..`);
+  inputComment.setAttribute(`placeholder`, `write content here..`);
   inputComment.setAttribute(`rows`, `4`);
   inputComment.setAttribute(`cols`, `20`);
   inputComment.required = true;
-
-  //RATING SECTION
-  let ratingLabel = document.createElement(`label`)
-  ratingLabel.setAttribute(`for`, "rating")
-  let ratingTitle = document.createElement(`h3`)
-  ratingTitle.setAttribute(`class`, `rating`)
-  ratingTitle.innerText = "Rating: "
-
-  let ratingInput = document.createElement(`input`)
-  ratingInput.setAttribute(`id`, `rating`)
-  ratingInput.setAttribute(`name`, `rating`)
-  ratingInput.setAttribute(`type`, `number`)
-  ratingInput.setAttribute(`min`, `1`)
-  ratingInput.setAttribute(`max`, `5`)
-  ratingInput.required = true
 
   //CREATE POST BUTTON
   let formBtn = document.createElement(`button`);
@@ -289,14 +229,13 @@ function createForm(films) {
     );
 
     let newPost = {
-      // orginalId: foundFilm.id,
-      id: foundFilm.id,
-      userId: "", //we need to figure our how to make this the selected User Id
+      orginalId: foundFilm.id,
+      userId: state.activeUser.id,
+      userName: state.activeUser.name,
       image: imageInput.value,
       genre: genreSelectEl.value,
       content: inputComment.value,
-      // rating: ratingSelectEl.value,
-      rating: 4,
+      rating: ratingSelectEl.value,
       animeInfo: {
         title: foundFilm.title,
         originalTitle: foundFilm.originalTitle,
@@ -314,38 +253,31 @@ function createForm(films) {
     });
   });
 
-  
-  //APPEND
   filmTitleLabelEl.append(filmTitleLabelH3);
-  
+
   genreLabel.append(genreLabelH3);
-  genreSelectEl.append(
-    genreRomanceOption,
-    genreActionOption,
-    genreComedyOption,
-    genreMagicOption
-    );
-    
+
   labelComment.append(labelCommentH3);
   imageLabel.append(imageLabelH3);
-  ratingLabel.append(ratingTitle, ratingInput)
-  
+
   formEl.append(
+    formTitle,
     filmTitleLabelEl,
     filmTitleSelectEl,
     genreLabel,
     genreSelectEl,
-    ratingLabel,
+
     imageLabel,
     imageInput,
 
-    // ratingLabel,
+    ratingLabel,
 
     labelCommentH3,
     inputComment,
+
     formBtn
   );
-  asideEl.append(formTitle, formEl);
+  asideEl.append(formEl);
 }
 
 // form(data from server) inside the form we can get the nicefilmapi, genre, title, etc then post to server/ state.posts/ then renderposts
@@ -354,59 +286,87 @@ function createForm(films) {
 // or we dont need to renderposts in here, can just render one card based on the form
 // use filter to find the data we look for
 
-
 function renderCards(posts) {
   journaUlList.innerHTML = "";
   posts.map(renderCard);
 }
 
-function renderCard(post) {
-  //LI
-  let journalList = document.createElement("li");
-  journalList.className = "journal-list";
+//   post this post to our own server
 
-  //LI TITLE
-  let journalReviewTitle = document.createElement("h4");
-  journalReviewTitle.innerText = `Review of:\n `;
+function renderCard(post) {
+  let journalList = document.createElement("li");
+  journalList.className = "journallist";
+
+  let userDiv = document.createElement("div");
+  userDiv.className = "account-div";
+
+  let userProfile = document.createElement("img");
+  userProfile.className = "user-profile";
+
+  let userName = document.createElement("span");
+  userName.innerText = post.userName;
+
+  if (post.userId === 1) {
+    userProfile.setAttribute(
+      "src",
+      "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    );
+  } else {
+    userProfile.setAttribute(
+      "src",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBn75PNFGZU7zbLgyVsUhlDEWyBQxLea3GCA&usqp=CAU"
+    );
+  }
+
+  userDiv.append(userProfile, userName);
+
+  let journalReviewTitle = document.createElement("h3");
+  journalReviewTitle.innerText = `Review of `;
 
   let spanFilmName = document.createElement("span");
-  spanFilmName.className = "film-name";
-  spanFilmName.innerText = `${post.animeInfo.title}\n`;
+  spanFilmName.className = "filmname";
+  //need to change
+  spanFilmName.innerText = post.animeInfo.title;
 
   let originalTitle = document.createElement("p");
-  originalTitle.setAttribute(`class`, `original-name`)
-  originalTitle.innerText = `Original name: ${post.animeInfo.originalTitle}`;
-  
-  //APPEND
+  originalTitle.innerText = post.animeInfo.originalTitle;
+
   journalReviewTitle.append(spanFilmName, originalTitle);
 
-  //RATING SECTION
   let ratingSection = document.createElement("div");
-  ratingSection.className = "rate-div";
+  ratingSection.className = "ratediv";
 
-  let ratingScore = document.createElement("p");
+  let ratingPara = document.createElement("p");
 
-  ratingScore.className = "ratingScore";
-  ratingScore.innerText = `Rating: ${post.rating} `;
+  ratingPara.className = "ratingPara";
+  ratingPara.innerText = `Rating:  `;
+
+  let ratingScore = document.createElement("span");
+  ratingScore.className = "ratingscore";
+
+  ratingScore.innerText = `${post.rating} `;
+
+  if (ratingScore.innerText >= 3) {
+    ratingScore.className = "high-rating-score";
+  }
+
+  ratingPara.append(ratingScore);
 
   let svgel = document.createElement("img");
   svgel.setAttribute("class", "ratingstar");
 
   //put how may stars
-
   if (post.rating >= 3) {
-    svgEl.setAttribute("src", "image/thumbs-up.svg");
+    svgel.setAttribute("src", "image/rate.svg");
 
-    ratingScore.append(svgEl);
+    ratingPara.append(svgel);
   }
 
-  
-  //GENRE
   let genre = document.createElement("span");
+  genre.className = "ratingGenre";
   genre.innerText = post.genre;
-  
-  //APPEND
-  ratingSection.append(ratingScore, genre);
+
+  ratingSection.append(ratingPara, genre);
 
   let journalBtns = document.createElement("div");
   journalBtns.className = "buttonsection";
@@ -429,48 +389,56 @@ function renderCard(post) {
   editBTn.innerText = "Edit";
 
   editBTn.addEventListener("click", function () {
-    // let editForm = createEditForm(post);
-    // journalContent.innerHTML = "";
-    // journalContent.append(editForm);
+    if (state.activeUser.id == null) {
+      alert("Sign in First");
+      return;
+    }
+
+    if (state.activeUser.id !== post.userId) {
+      alert("you are not the creator");
+      return;
+    }
+
+    let editForm = createEditForm(post);
+    journalContent.innerHTML = "";
+    journalContent.append(editForm);
   });
 
   journalBtns.append(editBTn, deleteBTn);
   //todo create a form to edit then update to server then update to the state then rendercards
 
-
-  //JOURNAL CONTENT
   let journalContent = document.createElement("p");
-  journalContent.className = "journal-content";
+  journalContent.className = "journalContent";
+
+  //need to change
+
   journalContent.innerText = post.content;
-  
-  //FILM IMG
+
   let filmPicture = document.createElement("img");
-  filmPicture.setAttribute("class", "film-picture");
+  filmPicture.setAttribute("class", "filmpicture");
   filmPicture.setAttribute("src", post.image);
-  
-  //FILM DESCRIPTION
+
   let filmDescription = document.createElement("p");
+  filmDescription.innerText = "Description";
+  filmDescription.className = " filmDescription";
   filmDescription.innerText = "Description: ";
-  filmDescription.className = "film-description";
 
   let spanDescription = document.createElement("span");
   spanDescription.innerText = post.animeInfo.description;
 
-  
-  //APPEND
   filmDescription.append(spanDescription);
 
   journalList.append(
-    deleteBtn,
+    userDiv,
     journalReviewTitle,
     ratingSection,
     journalContent,
-    journalBtnsDiv,
+    journalBtns,
     filmPicture,
     filmDescription
   );
-  
-  journalUlList.append(journalList);
+
+  journaUlList.append(journalList);
 }
 
 //FETCH USERS
@@ -481,9 +449,11 @@ function getUserInfo() {
 }
 
 //USERS ACCOUNT FUNCTIONS:
-function renderUserAccount(accounts) {
-  accounts.map(function (account) {
-    createUserAccount(account);
+function renderUserAccounts(accounts) {
+  accountDivision.innerHTML = "";
+  accounts.forEach(function (account) {
+    let userAccountdivEl = createUserAccount(account);
+    accountDivision.append(userAccountdivEl);
   });
 }
 
@@ -491,67 +461,114 @@ function createUserAccount(account) {
   let userAccountdivEl = document.createElement("div");
   userAccountdivEl.className = "user-div";
 
+  if (state.activeUser.name === account.name) {
+    userAccountdivEl.classList.add("active-user");
+  }
+
   let userSpanName = document.createElement("span");
   userSpanName.innerText = account.name;
 
   userAccountdivEl.append(userSpanName);
-  headerEl.append(userAccountdivEl);
 
   userAccountdivEl.addEventListener("click", function () {
-    if (!state.activeUser.id === null) {
-      userAccountdivEl.className.remove("active-user");
-    } else {
-      userAccountdivEl.classList.add("active-user");
+    let editForm = document.querySelector(".edit-form");
+    if (state.activeUser.id === account.id) {
+      state.activeUser = {
+        id: null,
+        name: null,
+      };
+      // userAccountdivEl.classList.remove("active-user");
+      renderCards(state.posts);
+      console.log("You just signed off");
+      renderUserAccounts(state.users);
+      return;
     }
+
     state.activeUser = account;
+
+    renderUserAccounts(state.users);
+
+    if (editForm !== null) {
+      renderCards(state.posts);
+      return;
+    }
+
+    renderCards(state.posts);
     console.log(state.activeUser);
   });
+  return userAccountdivEl;
 }
 
-// function createEditForm(post) {
-//   let editForm = document.createElement("form");
-//   let contentInput = document.createElement("textarea");
-//   contentInput.setAttribute("type", "text");
-//   contentInput.setAttribute("name", "contentEdit");
-//   contentInput.setAttribute("rows", "3");
-//   contentInput.value = post.content;
-//   let submitBtn = document.createElement("button");
-//   submitBtn.innerText = "Submit";
-//   submitBtn.className = "edit_submitBTn";
-//   editForm.append(contentInput, submitBtn);
+function createEditForm(post) {
+  let editForm = document.createElement("form");
+  editForm.className = "edit-form";
+  let contentInput = document.createElement("textarea");
+  contentInput.setAttribute("type", "text");
+  contentInput.setAttribute("name", "contentEdit");
+  contentInput.setAttribute("rows", "3");
+  contentInput.setAttribute("class", "content-edit ");
+  contentInput.value = post.content;
 
-//   editForm.addEventListener("submit", function (e) {
-//     e.preventDefault();
-//     updateContentToServer(editForm, post).then(function (
-//       updatedPostFromServer
-//     ) {
-//       let updatePostToStateIndex = state.posts.findIndex(function (targetPost) {
-//         return targetPost.id === updatedPostFromServer.id;
-//       });
+  let submitBtn = document.createElement("button");
+  submitBtn.innerText = "Submit";
+  submitBtn.className = "edit_submitBTn";
 
-//       state.posts[updatePostToStateIndex] = updatedPostFromServer;
-//       renderCards(state.posts);
-//       editForm.remove();
-//     });
-//   });
-//   return editForm;
-// }
+  let discardBtn = document.createElement("button");
+  discardBtn.innerText = "Discard";
+  discardBtn.className = "discard_submitBTn";
 
-// function updateContentToServer(form, post) {
-//   let updatePost = state.posts.find(function (targetPost) {
-//     return targetPost.id === post.id;
-//   });
-//   let updateID = updatePost.id;
-//   return fetch(`http://localhost:3000/posts/${updateID}`, {
-//     method: "PATCH",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({
-//       content: form.contentEdit.value,
-//     }),
-//   }).then(function (resp) {
-//     return resp.json();
-//   });
-// }
+  editForm.append(contentInput, submitBtn, discardBtn);
+
+  discardBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    editForm.remove();
+    renderCards(state.posts);
+  });
+
+  editForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    // console.log(editForm.contentEdit.value);
+    if (contentInput.value === null) {
+      alert(
+        "content can not be empty, please choose discard or delete your journal"
+      );
+    }
+
+    if (state.activeUser.id !== post.userId) {
+      editForm.remove();
+      alert("you are not the creator");
+      return;
+    }
+    updateContentToServer(editForm, post).then(function (
+      updatedPostFromServer
+    ) {
+      let updatePostToStateIndex = state.posts.findIndex(function (targetPost) {
+        return targetPost.id === updatedPostFromServer.id;
+      });
+
+      state.posts[updatePostToStateIndex] = updatedPostFromServer;
+      renderCards(state.posts);
+      editForm.remove();
+    });
+  });
+  return editForm;
+}
+
+function updateContentToServer(form, post) {
+  let updatePost = state.posts.find(function (targetPost) {
+    return targetPost.id === post.id;
+  });
+  let updateID = updatePost.id;
+  return fetch(`http://localhost:3000/posts/${updateID}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      content: form.contentEdit.value,
+    }),
+  }).then(function (resp) {
+    return resp.json();
+  });
+}
 
 function deleteDatatoServer(post) {
   let deletePost = state.posts.find(function (targetPost) {
@@ -565,12 +582,14 @@ function deleteDatatoServer(post) {
 
 function renderCheckedGenreList() {
   let genreArray = state.checkedGenre.map(function (checkGenre) {
-    return checkGenre.toLowerCase();
+    return checkGenre;
   });
   console.log(genreArray);
   let filteredPosts = state.posts.filter(function (targetPost) {
     return genreArray.includes(targetPost.genre);
   });
+  console.log(state);
+  console.log(filteredPosts);
   renderCards(filteredPosts);
 }
 
