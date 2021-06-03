@@ -146,7 +146,26 @@ function createForm(films) {
   genreLabelH3.setAttribute(`class`, `genre-title`);
   genreLabelH3.innerText = "Select genre: ";
 
-  // 📌
+  //FILM GENRE 
+  let genreLabel = document.createElement(`label`)
+  genreLabel.setAttribute(`for`, `genre`)
+  let genreLabelH3 = document.createElement(`h3`)
+  genreLabelH3.setAttribute(`class`, `genre-title`)
+  genreLabelH3.innerText = "Select genre: "
+  
+  
+  let genreSelectEl = document.createElement(`select`)
+  genreSelectEl.setAttribute(`name`, `genre`)
+  genreSelectEl.setAttribute(`id`, `genre`)
+
+  let genreRomanceOption = document.createElement(`option`)
+  genreRomanceOption.setAttribute(`value`, `romance`)
+  genreRomanceOption.innerText = "Romance"
+  
+  let genreActionOption = document.createElement(`option`)
+  genreActionOption.setAttribute(`value`, `action`)
+  genreActionOption.innerText = "Action"
+
   let genreSelectEl = document.createElement(`select`);
   genreSelectEl.setAttribute(`name`, `genre`);
   genreSelectEl.setAttribute(`id`, `genre`);
@@ -267,6 +286,7 @@ function createForm(films) {
   genreLabel.append(genreLabelH3);
   genreSelectEl.append(
     genreRomanceOption,
+
     genreActionOption,
     genreComedyOption,
     genreMagicOption
@@ -292,6 +312,7 @@ function createForm(films) {
   );
   asideEl.append(formTitle, formEl);
 }
+
 
 // form(data from server) inside the form we can get the nicefilmapi, genre, title, etc then post to server/ state.posts/ then renderposts
 
