@@ -34,10 +34,10 @@ let state = {
   checkedGenre: [],
 };
 renderCheckbox();
-renderAside();
+render();
 
 //RENDER FUNCTION:
-function renderAside() {
+function render() {
   //users section
   getUserInfo().then(function (accounts) {
     console.log(`fetch users: `, accounts);
