@@ -61,18 +61,14 @@ header h1 {
   font-size: larger;
 }
 
-
-
 /* MAIN SECTION */
 .main {
   grid-area: main;
-  border: 2px solid rgb(243, 239, 9); /*to be DELETED AFTER APP WORKS*/
 }
 
 /* ASIDE SECTION */
 .aside {
   grid-area: aside;
-  /* border: 2px solid var(--primary-teal); */
 }
 
 /* FORM  */
@@ -82,7 +78,6 @@ header h1 {
   padding: 10px;
   border: 3px solid var(--white-lavander);
   border-radius: 10px;
-  shado
 }
 
 .form-title {
@@ -142,18 +137,21 @@ header h1 {
 }
 
 
-.main-render-section {
-
+/* JOURNAL  */
+.film-name {
+  font-weight: 900;
+  font-size: 1.4rem;
 }
 
-.journaUlList{
+.journal-ul-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, 300px);
   background-color: #00808040;
   gap: 20px;
   padding: 20px;
 }
-.journallist {
+
+.journal-list {
   list-style: none;
   width: 300px;
   height: 500px;
@@ -165,7 +163,7 @@ header h1 {
   gap: 10px;
 }
 
-.ratediv {
+.rate-div {
   background-color: #e6e6fa90;
   display: grid;
   grid-template-columns: auto auto;
@@ -175,60 +173,70 @@ header h1 {
   padding: 0px 20px;
   color: teal;
 }
-.ratingScore {
+
+.rating-score {
   display: grid;
   grid-template-columns: auto auto;
   align-items: center;
 }
-.ratediv span {
+.rate-div span {
   font-weight: bolder;
   font-size: larger;
 }
-.filmpicture {
+
+.film-picture {
   width: 260px;
   height: 180px;
   object-fit: cover;
 }
-.ratingstar {
+
+.rating-star {
   width: 35px;
   height: 35px;
 }
-.titleofjournal {
+
+.title-of-journal {
   color: coral;
 }
-.journalContent {
+
+.journal-content {
   background-color: #ff634720;
   padding: 5px;
 }
-.filmDescription {
+
+.film-description {
   background-color: #d8bfd850;
   padding: 5px;
-  height: 60px;
+  height: 100px;
   overflow: scroll;
   color: tomato;
   font-weight: bolder;
 }
-.filmDescription span {
+
+.film-description span {
   color: black;
   font-weight: lighter;
 }
-.buttonsection {
+
+.button-section {
   display: grid;
   grid-template-columns: 44% 44%;
   gap: 30px;
 }
-.buttonsection button {
+
+.button-section button {
   background-color: slateblue;
   border: none;
   padding: 5px 20px;
   border-radius: 5px;
   color: aliceblue;
 }
-.buttonsection .deleteBTn {
+
+.button-section .deleteBTn {
   background-color: tomato;
 }
 
-.buttonsection button:hover {
+.button-section button:hover {
   filter: brightness(1.5);
   transition: 0.2s;
   transform: scale(1.05);
