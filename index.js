@@ -1,9 +1,3 @@
-// 1 create header which includes the user account,
-// 2 create a filter and form on the aside
-// 3 render in the main section, in this way we only render main section which is easier to read
-
-// some css is already added, feel free to change it
-
 //GENERAL VARIABLES:
 const headerEl = document.querySelector("header");
 const asideEl = document.querySelector(".aside");
@@ -42,6 +36,7 @@ function render() {
   getUserInfo().then(function (accounts) {
     console.log(`fetch users: `, accounts);
     renderUserAccount(accounts);
+    renderPostsFromServer()
   });
 
   //films-form section
@@ -50,7 +45,7 @@ function render() {
   });
 }
 
-//FILM DATA
+//FETCH FILM DATA
 function getFilmInfo() {
   let uglyFilmsData = {};
 
@@ -117,6 +112,47 @@ function createForm(films) {
   formEl.setAttribute(`class`, `form`);
   formEl.setAttribute(`id`, `form`);
   // formEl.setAttribute(`autocomplete`, `off`);
+
+  formEl.addEventListener(`submit`, function (e) {
+    e.preventDefault();
+
+    let foundFilm = state.niceFilmsFromAPI.find(
+      (film) => film.title === filmTitleSelectEl.value
+    );
+
+    let newPost = {
+      id: foundFilm.id,
+      userId: "", //we need to figure our how to make this the selected User Id
+      image: imageInput.value,
+      genre: genreSelectEl.value,
+      content: inputComment.value,
+      rating: rating.value,
+      animeInfo: {
+        title: foundFilm.title,
+        originalTitle: foundFilm.originalTitle,
+        director: foundFilm.director,
+        description: foundFilm.description,
+      },
+    };
+  
+    //SAVE NEWPOST INTO THE SERVER
+    fetch(`http://localhost:3000/posts`, {
+      method: `POST`,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPost)
+    })
+    .then(function (response) {
+      return response.json()
+    })
+    //I RENDER THE PAGE WITH THE NEW POST
+    .then(function (newPostFromServer) {
+      renderCard(newPostFromServer);
+    })
+
+      formEl.reset()
+}) //event listener closing
 
   //FILM TITLE:
   let filmTitleLabelEl = document.createElement(`label`);
@@ -219,6 +255,21 @@ function createForm(films) {
   inputComment.setAttribute(`cols`, `20`);
   inputComment.required = true;
 
+  //RATING SECTION
+  let ratingLabel = document.createElement(`label`)
+  ratingLabel.setAttribute(`for`, "rating")
+  let ratingTitle = document.createElement(`h3`)
+  ratingTitle.setAttribute(`class`, `rating`)
+  ratingTitle.innerText = "Rating: "
+
+  let ratingInput = document.createElement(`input`)
+  ratingInput.setAttribute(`id`, `rating`)
+  ratingInput.setAttribute(`name`, `rating`)
+  ratingInput.setAttribute(`type`, `number`)
+  ratingInput.setAttribute(`min`, `1`)
+  ratingInput.setAttribute(`max`, `5`)
+  ratingInput.required = true
+
   //CREATE POST BUTTON
   let formBtn = document.createElement(`button`);
   formBtn.setAttribute(`class`, `form-btn`);
@@ -263,25 +314,28 @@ function createForm(films) {
     });
   });
 
+  
+  //APPEND
   filmTitleLabelEl.append(filmTitleLabelH3);
-
+  
   genreLabel.append(genreLabelH3);
   genreSelectEl.append(
     genreRomanceOption,
-
     genreActionOption,
     genreComedyOption,
     genreMagicOption
-  );
+    );
+    
   labelComment.append(labelCommentH3);
   imageLabel.append(imageLabelH3);
-
+  ratingLabel.append(ratingTitle, ratingInput)
+  
   formEl.append(
     filmTitleLabelEl,
     filmTitleSelectEl,
     genreLabel,
     genreSelectEl,
-
+    ratingLabel,
     imageLabel,
     imageInput,
 
@@ -289,7 +343,6 @@ function createForm(films) {
 
     labelCommentH3,
     inputComment,
-
     formBtn
   );
   asideEl.append(formTitle, formEl);
@@ -301,32 +354,35 @@ function createForm(films) {
 // or we dont need to renderposts in here, can just render one card based on the form
 // use filter to find the data we look for
 
+
 function renderCards(posts) {
   journaUlList.innerHTML = "";
   posts.map(renderCard);
 }
 
-//   post this post to our own server
-
 function renderCard(post) {
+  //LI
   let journalList = document.createElement("li");
-  journalList.className = "journallist";
+  journalList.className = "journal-list";
 
-  let journalReviewTitle = document.createElement("h3");
-  journalReviewTitle.innerText = `Review of `;
+  //LI TITLE
+  let journalReviewTitle = document.createElement("h4");
+  journalReviewTitle.innerText = `Review of:\n `;
 
   let spanFilmName = document.createElement("span");
-  spanFilmName.className = "filmname";
-  //need to change
-  spanFilmName.innerText = post.animeInfo.title;
+  spanFilmName.className = "film-name";
+  spanFilmName.innerText = `${post.animeInfo.title}\n`;
 
   let originalTitle = document.createElement("p");
-  originalTitle.innerText = post.animeInfo.originalTitle;
-
+  originalTitle.setAttribute(`class`, `original-name`)
+  originalTitle.innerText = `Original name: ${post.animeInfo.originalTitle}`;
+  
+  //APPEND
   journalReviewTitle.append(spanFilmName, originalTitle);
 
+  //RATING SECTION
   let ratingSection = document.createElement("div");
-  ratingSection.className = "ratediv";
+  ratingSection.className = "rate-div";
 
   let ratingScore = document.createElement("p");
 
@@ -337,15 +393,19 @@ function renderCard(post) {
   svgel.setAttribute("class", "ratingstar");
 
   //put how may stars
-  if (post.rating >= 3) {
-    svgel.setAttribute("src", "image/rate.svg");
 
-    ratingScore.append(svgel);
+  if (post.rating >= 3) {
+    svgEl.setAttribute("src", "image/thumbs-up.svg");
+
+    ratingScore.append(svgEl);
   }
 
+  
+  //GENRE
   let genre = document.createElement("span");
   genre.innerText = post.genre;
-
+  
+  //APPEND
   ratingSection.append(ratingScore, genre);
 
   let journalBtns = document.createElement("div");
@@ -377,37 +437,40 @@ function renderCard(post) {
   journalBtns.append(editBTn, deleteBTn);
   //todo create a form to edit then update to server then update to the state then rendercards
 
+
+  //JOURNAL CONTENT
   let journalContent = document.createElement("p");
-  journalContent.className = "journalContent";
-
-  //need to change
-
+  journalContent.className = "journal-content";
   journalContent.innerText = post.content;
-
+  
+  //FILM IMG
   let filmPicture = document.createElement("img");
-  filmPicture.setAttribute("class", "filmpicture");
+  filmPicture.setAttribute("class", "film-picture");
   filmPicture.setAttribute("src", post.image);
-
+  
+  //FILM DESCRIPTION
   let filmDescription = document.createElement("p");
-  filmDescription.innerText = "Description";
-  filmDescription.className = " filmDescription";
   filmDescription.innerText = "Description: ";
+  filmDescription.className = "film-description";
 
   let spanDescription = document.createElement("span");
   spanDescription.innerText = post.animeInfo.description;
 
+  
+  //APPEND
   filmDescription.append(spanDescription);
 
   journalList.append(
+    deleteBtn,
     journalReviewTitle,
     ratingSection,
     journalContent,
-    journalBtns,
+    journalBtnsDiv,
     filmPicture,
     filmDescription
   );
-
-  journaUlList.append(journalList);
+  
+  journalUlList.append(journalList);
 }
 
 //FETCH USERS
