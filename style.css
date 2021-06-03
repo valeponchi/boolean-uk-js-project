@@ -10,10 +10,10 @@ html {
   --primary-teal-half-transparent: #40e0d080;
   --primary-teal-full-transparent: #00808020;
   --primary-light-cyan: lightcyan;
-
+  --hover-user-color: darkslateblue;
   --secondary-salmon: lightsalmon;
 
-  --white-lavander: lavender; 
+  --white-lavander: lavender;
 }
 
 body {
@@ -26,7 +26,7 @@ body {
     "header header" auto
     "aside main" 1fr/
     1fr 2fr;
-    gap: 10px;
+  gap: 10px;
 }
 
 /* HEADER SECTION  */
@@ -55,13 +55,23 @@ header h1 {
   background-color: var(--primary-teal);
   display: grid;
   justify-content: center;
+  cursor: pointer;
+}
+
+.active-user {
+  color: var(--white-lavander);
+  width: 130px;
+  border-radius: 15px;
+  padding: 10px 20px;
+  background-color: var(--secondary-salmon);
+  display: grid;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .user-div span {
-  font-size: larger;
+  font-size: 20px;
 }
-
-
 
 /* MAIN SECTION */
 .main {
@@ -82,7 +92,6 @@ header h1 {
   padding: 10px;
   border: 3px solid var(--white-lavander);
   border-radius: 10px;
-  shado
 }
 
 .form-title {
@@ -109,6 +118,11 @@ header h1 {
 .form-comment {
   color: var(--white-lavander);
   text-shadow: 3px 2px 2px black;
+}
+.rating-lable {
+  color: var(--white-lavander);
+  text-shadow: 3px 2px 2px black;
+  font-size: larger;
 }
 
 .form-btn {
@@ -141,17 +155,13 @@ header h1 {
   margin: 0px 10px 0px 10px;
 }
 
-
-.main-render-section {
-
-}
-
-.journaUlList{
+.journal-Ul-List {
   display: grid;
   grid-template-columns: repeat(auto-fit, 300px);
   background-color: #00808040;
   gap: 20px;
   padding: 20px;
+  background-color: #ffebcd90;
 }
 .journallist {
   list-style: none;
@@ -200,6 +210,12 @@ header h1 {
   background-color: #ff634720;
   padding: 5px;
 }
+.journalContent form {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+}
+
 .filmDescription {
   background-color: #d8bfd850;
   padding: 5px;
@@ -232,4 +248,25 @@ header h1 {
   filter: brightness(1.5);
   transition: 0.2s;
   transform: scale(1.05);
+}
+.edit_submitBTn {
+  background-color: darkcyan;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: aliceblue;
+  margin-left: 10px;
+}
+.clear_btn {
+  background-color: lightpink;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: black;
+  margin-left: 10px;
+}
+
+.clear_btn:hover {
+  background-color: lavenderblush;
+  transition: 0.2s;
 }
