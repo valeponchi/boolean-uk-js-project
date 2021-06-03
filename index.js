@@ -146,25 +146,6 @@ function createForm(films) {
   genreLabelH3.setAttribute(`class`, `genre-title`);
   genreLabelH3.innerText = "Select genre: ";
 
-  //FILM GENRE
-  let genreLabel = document.createElement(`label`);
-  genreLabel.setAttribute(`for`, `genre`);
-  let genreLabelH3 = document.createElement(`h3`);
-  genreLabelH3.setAttribute(`class`, `genre-title`);
-  genreLabelH3.innerText = "Select genre: ";
-
-  let genreSelectEl = document.createElement(`select`);
-  genreSelectEl.setAttribute(`name`, `genre`);
-  genreSelectEl.setAttribute(`id`, `genre`);
-
-  let genreRomanceOption = document.createElement(`option`);
-  genreRomanceOption.setAttribute(`value`, `romance`);
-  genreRomanceOption.innerText = "Romance";
-
-  let genreActionOption = document.createElement(`option`);
-  genreActionOption.setAttribute(`value`, `action`);
-  genreActionOption.innerText = "Action";
-
   let genreSelectEl = document.createElement(`select`);
   genreSelectEl.setAttribute(`name`, `genre`);
   genreSelectEl.setAttribute(`id`, `genre`);
@@ -201,25 +182,25 @@ function createForm(films) {
   imageInput.setAttribute(`placeholder`, `Image URL`);
 
   //rating
-  let ratingLabel = document.createElement(`label`);
-  ratingLabel.className = "rating-lable";
+  // let ratingLabel = document.createElement(`label`);
+  // ratingLabel.className = "rating-lable";
 
-  ratingLabel.innerText = "Rate a Score: ";
+  // ratingLabel.innerText = "Rate a Score: ";
 
-  let ratingSelectEl = document.createElement(`select`);
-  ratingSelectEl.setAttribute(`name`, `rating`);
-  ratingSelectEl.setAttribute(`class`, `ratinng`);
+  // let ratingSelectEl = document.createElement(`select`);
+  // ratingSelectEl.setAttribute(`name`, `rating`);
+  // ratingSelectEl.setAttribute(`class`, `ratinng`);
 
-  let ratingArray = [1, 2, 3, 4, 5];
+  // let ratingArray = [1, 2, 3, 4, 5];
 
-  ratingArray.forEach(function (score) {
-    let scoreOption = document.createElement("option");
-    scoreOption.setAttribute(`value`, score);
-    scoreOption.innerText = score;
+  // ratingArray.forEach(function (score) {
+  //   let scoreOption = document.createElement("option");
+  //   scoreOption.setAttribute(`value`, score);
+  //   scoreOption.innerText = score;
 
-    ratingSelectEl.append(scoreOption);
-  });
-  ratingLabel.append(ratingSelectEl);
+  //   ratingSelectEl.append(scoreOption);
+  // });
+  // ratingLabel.append(ratingSelectEl);
 
   //CONTENT:
   let labelComment = document.createElement(`label`);
@@ -257,12 +238,14 @@ function createForm(films) {
     );
 
     let newPost = {
-      orginalId: foundFilm.id,
+      // orginalId: foundFilm.id,
+      id: foundFilm.id,
       userId: "", //we need to figure our how to make this the selected User Id
       image: imageInput.value,
       genre: genreSelectEl.value,
       content: inputComment.value,
-      rating: ratingSelectEl.value,
+      // rating: ratingSelectEl.value,
+      rating: 4,
       animeInfo: {
         title: foundFilm.title,
         originalTitle: foundFilm.originalTitle,
@@ -302,7 +285,7 @@ function createForm(films) {
     imageLabel,
     imageInput,
 
-    ratingLabel,
+    // ratingLabel,
 
     labelCommentH3,
     inputComment,
@@ -386,9 +369,9 @@ function renderCard(post) {
   editBTn.innerText = "Edit";
 
   editBTn.addEventListener("click", function () {
-    let editForm = createEditForm(post);
-    journalContent.innerHTML = "";
-    journalContent.append(editForm);
+    // let editForm = createEditForm(post);
+    // journalContent.innerHTML = "";
+    // journalContent.append(editForm);
   });
 
   journalBtns.append(editBTn, deleteBTn);
@@ -462,50 +445,50 @@ function createUserAccount(account) {
   });
 }
 
-function createEditForm(post) {
-  let editForm = document.createElement("form");
-  let contentInput = document.createElement("textarea");
-  contentInput.setAttribute("type", "text");
-  contentInput.setAttribute("name", "contentEdit");
-  contentInput.setAttribute("rows", "3");
-  contentInput.value = post.content;
-  let submitBtn = document.createElement("button");
-  submitBtn.innerText = "Submit";
-  submitBtn.className = "edit_submitBTn";
-  editForm.append(contentInput, submitBtn);
+// function createEditForm(post) {
+//   let editForm = document.createElement("form");
+//   let contentInput = document.createElement("textarea");
+//   contentInput.setAttribute("type", "text");
+//   contentInput.setAttribute("name", "contentEdit");
+//   contentInput.setAttribute("rows", "3");
+//   contentInput.value = post.content;
+//   let submitBtn = document.createElement("button");
+//   submitBtn.innerText = "Submit";
+//   submitBtn.className = "edit_submitBTn";
+//   editForm.append(contentInput, submitBtn);
 
-  editForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    updateContentToServer(editForm, post).then(function (
-      updatedPostFromServer
-    ) {
-      let updatePostToStateIndex = state.posts.findIndex(function (targetPost) {
-        return targetPost.id === updatedPostFromServer.id;
-      });
+//   editForm.addEventListener("submit", function (e) {
+//     e.preventDefault();
+//     updateContentToServer(editForm, post).then(function (
+//       updatedPostFromServer
+//     ) {
+//       let updatePostToStateIndex = state.posts.findIndex(function (targetPost) {
+//         return targetPost.id === updatedPostFromServer.id;
+//       });
 
-      state.posts[updatePostToStateIndex] = updatedPostFromServer;
-      renderCards(state.posts);
-      editForm.remove();
-    });
-  });
-  return editForm;
-}
+//       state.posts[updatePostToStateIndex] = updatedPostFromServer;
+//       renderCards(state.posts);
+//       editForm.remove();
+//     });
+//   });
+//   return editForm;
+// }
 
-function updateContentToServer(form, post) {
-  let updatePost = state.posts.find(function (targetPost) {
-    return targetPost.id === post.id;
-  });
-  let updateID = updatePost.id;
-  return fetch(`http://localhost:3000/posts/${updateID}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      content: form.contentEdit.value,
-    }),
-  }).then(function (resp) {
-    return resp.json();
-  });
-}
+// function updateContentToServer(form, post) {
+//   let updatePost = state.posts.find(function (targetPost) {
+//     return targetPost.id === post.id;
+//   });
+//   let updateID = updatePost.id;
+//   return fetch(`http://localhost:3000/posts/${updateID}`, {
+//     method: "PATCH",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({
+//       content: form.contentEdit.value,
+//     }),
+//   }).then(function (resp) {
+//     return resp.json();
+//   });
+// }
 
 function deleteDatatoServer(post) {
   let deletePost = state.posts.find(function (targetPost) {
