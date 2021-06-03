@@ -1,15 +1,10 @@
-// 1 create header which includes the user account,
-// 2 create a filter and form on the aside
-// 3 render in the main section, in this way we only render main section which is easier to read
-
-// some css is already added, feel free to change it
-
 //GENERAL VARIABLES:
 const headerEl = document.querySelector("header");
 const asideEl = document.querySelector(".aside");
 const mainEl = document.querySelector(".main");
-const mainRenderSection = document.querySelector(".mainrendersection");
-const journaUlList = document.querySelector(".journalUlList");
+const mainRenderSection = document.querySelector(".main-render-section");
+const journalUlList = document.querySelector(".journal-ul-list");
+
 //STATE:
 let state = {
   users: [
@@ -23,22 +18,21 @@ let state = {
     },
   ],
   posts: [
-    {
-      id: 1,
-      userId: 1,
-      postTitle: "",
-      image: "",
-      genre: "",
-      comment: "",
-      // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
-      rating: 0, // 3/5 star star star,
-      animeInfo: {
-        title: "",
-        originalTitle: "",
-        director: "",
-        description: "",
-      },
-    },
+    // {
+    //   id: 1,
+    //   userId: 1,
+    //   postTitle: "",
+    //   image: "",
+    //   genre: "",
+    //   comment: "",
+    //   rating: 0, // 3/5 star star star,
+    //   animeInfo: {
+    //     title: "",
+    //     originalTitle: "",
+    //     director: "",
+    //     description: "",
+    //   },
+    // },
   ],
 
   niceFilmsFromAPI: [],
@@ -57,6 +51,7 @@ function render() {
   getUserInfo().then(function (accounts) {
     console.log(`fetch users: `, accounts);
     renderUserAccount(accounts);
+    renderPostsFromServer()
   });
 
   //films-form section
@@ -65,7 +60,7 @@ function render() {
   });
 }
 
-//FILM DATA
+//FETCH FILM DATA
 function getFilmInfo() {
   let uglyFilmsData = {};
 
@@ -98,6 +93,19 @@ function transformUglyFilmAPI(uglyFilmAPI) {
   return nicelyTransformedFilm;
 }
 
+//GET POSTS FROM SERVER
+function renderPostsFromServer() {
+  fetch(`http://localhost:3000/posts`).then(function (response) {
+    return response.json()
+    .then(function(postData){
+      for (const post of postData) {
+        renderCard(post)
+      }
+    })
+  })
+}
+
+//CREATE FUNCTIONS:
 //ASIDE FORM FUNCTION:
 function createForm(films) {
   //FORM TITLE:
@@ -110,6 +118,47 @@ function createForm(films) {
   formEl.setAttribute(`class`, `form`);
   formEl.setAttribute(`id`, `form`);
   // formEl.setAttribute(`autocomplete`, `off`);
+
+  formEl.addEventListener(`submit`, function (e) {
+    e.preventDefault();
+
+    let foundFilm = state.niceFilmsFromAPI.find(
+      (film) => film.title === filmTitleSelectEl.value
+    );
+
+    let newPost = {
+      id: foundFilm.id,
+      userId: "", //we need to figure our how to make this the selected User Id
+      image: imageInput.value,
+      genre: genreSelectEl.value,
+      content: inputComment.value,
+      rating: rating.value,
+      animeInfo: {
+        title: foundFilm.title,
+        originalTitle: foundFilm.originalTitle,
+        director: foundFilm.director,
+        description: foundFilm.description,
+      },
+    };
+  
+    //SAVE NEWPOST INTO THE SERVER
+    fetch(`http://localhost:3000/posts`, {
+      method: `POST`,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPost)
+    })
+    .then(function (response) {
+      return response.json()
+    })
+    //I RENDER THE PAGE WITH THE NEW POST
+    .then(function (newPostFromServer) {
+      renderCard(newPostFromServer);
+    })
+
+      formEl.reset()
+}) //event listener closing
 
   //FILM TITLE:
   let filmTitleLabelEl = document.createElement(`label`);
@@ -191,188 +240,156 @@ function createForm(films) {
   inputComment.setAttribute(`cols`, `20`);
   inputComment.required = true;
 
+  //RATING SECTION
+  let ratingLabel = document.createElement(`label`)
+  ratingLabel.setAttribute(`for`, "rating")
+  let ratingTitle = document.createElement(`h3`)
+  ratingTitle.setAttribute(`class`, `rating`)
+  ratingTitle.innerText = "Rating: "
+
+  let ratingInput = document.createElement(`input`)
+  ratingInput.setAttribute(`id`, `rating`)
+  ratingInput.setAttribute(`name`, `rating`)
+  ratingInput.setAttribute(`type`, `number`)
+  ratingInput.setAttribute(`min`, `1`)
+  ratingInput.setAttribute(`max`, `5`)
+  ratingInput.required = true
+
   //CREATE POST BUTTON
   let formBtn = document.createElement(`button`);
   formBtn.setAttribute(`class`, `form-btn`);
   formBtn.innerText = "CREATE";
-
-  asideEl.append(formEl);
-
-  formEl.addEventListener(`submit`, function (e) {
-    e.preventDefault();
-
-    let foundFilm = state.niceFilmsFromAPI.find(
-      (film) => film.title === filmTitleSelectEl.value
-    );
-
-    let newPost = {
-      id: foundFilm.id,
-      userId: "", //we need to figure our how to make this the selected User Id
-      image: imageInput.value,
-      genre: genreSelectEl.value,
-      content: inputComment.value,
-      // animeId: "2baf70d1-42bb-4437-b551-e5fed5a87abe",
-      rating: 3,
-      animeInfo: {
-        title: foundFilm.title,
-        originalTitle: foundFilm.originalTitle,
-        director: foundFilm.director,
-        description: foundFilm.description,
-      },
-    };
-    renderCard(newPost);
-  });
-  // getUserInfo(idinfo).then(function (filmInfo)
-
-  // idinfo = form.animeid
-  // this function is inside the form
-
-  // function getFilmInfo(idinfo) {
-  //   return fetch(`https://ghibliapi.herokuapp.com/films/${idinfo}`)
-  //     .then(function (filmDataFromServer) {
-  //       return filmDataFromServer.json();
-  //     })
-  //     .then(function (resp) {
-  //       console.log(resp);
-  //     });
-  // }
+  
+  //APPEND
   filmTitleLabelEl.append(filmTitleLabelH3);
-
+  
   genreLabel.append(genreLabelH3);
   genreSelectEl.append(
     genreRomanceOption,
-
     genreActionOption,
     genreComedyOption,
     genreMagicOption
-  );
+    );
+    
   labelComment.append(labelCommentH3);
   imageLabel.append(imageLabelH3);
-
+  ratingLabel.append(ratingTitle, ratingInput)
+  
   formEl.append(
     filmTitleLabelEl,
     filmTitleSelectEl,
     genreLabel,
     genreSelectEl,
-
+    ratingLabel,
     imageLabel,
     imageInput,
-
     labelCommentH3,
     inputComment,
-
     formBtn
-  );
-  asideEl.append(formTitle, formEl);
+    );
+
+    asideEl.append(formTitle, formEl);
 }
-
-
-// form(data from server) inside the form we can get the nicefilmapi, genre, title, etc then post to server/ state.posts/ then renderposts
-
-// posts should be state.posts and film should from the form
-// or we dont need to renderposts in here, can just render one card based on the form
-// use filter to find the data we look for
-
-// let filmName = formel.name of the select .value;
-// let selectedFilm = films.filter(function (film) {
-//   return film.title === filmName;
-// });
 
 function renderCards(posts) {
   posts.map(renderCard);
 }
 
-//   post this post to our own server
-
 function renderCard(post) {
+  //LI
   let journalList = document.createElement("li");
-  journalList.className = "journallist";
+  journalList.className = "journal-list";
 
-  let journalReviewTitle = document.createElement("h3");
-  journalReviewTitle.innerText = `Review of `;
+  //LI TITLE
+  let journalReviewTitle = document.createElement("h4");
+  journalReviewTitle.innerText = `Review of:\n `;
 
   let spanFilmName = document.createElement("span");
-  spanFilmName.className = "filmname";
-  //need to change
+  spanFilmName.className = "film-name";
   spanFilmName.innerText = post.animeInfo.title;
 
   let originalTitle = document.createElement("p");
-  originalTitle.innerText = post.animeInfo.originalTitle;
-
+  originalTitle.innerText = `Original name:\n ${post.animeInfo.originalTitle}`;
+  
+  //APPEND
   journalReviewTitle.append(spanFilmName, originalTitle);
 
+  //RATING SECTION
   let ratingSection = document.createElement("div");
-  ratingSection.className = "ratediv";
+  ratingSection.className = "rate-div";
 
   let ratingScore = document.createElement("p");
-
-  ratingScore.className = "ratingScore";
-  //need to change
-  ratingScore.innerText = `Rating: ${post.rating} `;
-
-  let svgel = document.createElement("img");
-  svgel.setAttribute("class", "ratingstar");
-
-  //put how may stars
+  ratingScore.className = "rating-score";
+  ratingScore.innerText = `Rating: ${post.rating}`;
+  let svgEl = document.createElement("img");
+  svgEl.setAttribute("class", "rating-star");
+  
   if (post.rating >= 3) {
-    svgel.setAttribute("src", "image/rate.svg");
+    svgEl.setAttribute("src", "image/rate.svg");
 
-    ratingScore.append(svgel);
+    ratingScore.append(svgEl);
   }
-  //need to change
+  
+  //GENRE
   let genre = document.createElement("span");
   genre.innerText = post.genre;
-
+  
+  //APPEND
   ratingSection.append(ratingScore, genre);
-
-  let journalBtns = document.createElement("div");
-  journalBtns.className = "buttonsection";
+  
+  //BUTTONS
+  let journalBtnsDiv = document.createElement("div");
+  journalBtnsDiv.className = "button-section";
 
   let deleteBTn = document.createElement("button");
-  deleteBTn.className = "deleteBTn";
+  deleteBTn.className = "delete-btn";
   deleteBTn.innerText = "DELETE";
+  //📌 EVENT LISTENER
+  // deleteBTn.addEventListener(`click`, function() {
 
-  //todo delete the post to the server then update the state then rendercards
+  // })
 
   let editBTn = document.createElement("button");
-  editBTn.innerText = "Edit";
-
-  journalBtns.append(editBTn, deleteBTn);
-  //todo create a form to edit then update to server then update to the state then rendercards
-
+  editBTn.innerText = "EDIT";
+  //📌 EVENT LISTENER
+  
+  
+  //APPEND
+  journalBtnsDiv.append(editBTn, deleteBTn);
+  
+  //JOURNAL CONTENT
   let journalContent = document.createElement("p");
-  journalContent.className = "journalContent";
-
-  //need to change
+  journalContent.className = "journal-content";
 
   journalContent.innerText = post.content;
+  
 
+  //FILM IMG
   let filmPicture = document.createElement("img");
-  filmPicture.setAttribute("class", "filmpicture");
+  filmPicture.setAttribute("class", "film-picture");
   filmPicture.setAttribute("src", post.image);
-
+  
+  //FILM DESCRIPTION
   let filmDescription = document.createElement("p");
-  filmDescription.innerText = "Description";
-  filmDescription.className = " filmDescription";
   filmDescription.innerText = "Description: ";
+  filmDescription.className = "film-description";
 
   let spanDescription = document.createElement("span");
-  // change
   spanDescription.innerText = post.animeInfo.description;
-  // change
-
+  
+  //APPEND
   filmDescription.append(spanDescription);
 
   journalList.append(
     journalReviewTitle,
     ratingSection,
     journalContent,
-    journalBtns,
+    journalBtnsDiv,
     filmPicture,
     filmDescription
   );
-
-  journaUlList.append(journalList);
+  
+  journalUlList.append(journalList);
 }
 
 //FETCH USERS
@@ -400,10 +417,5 @@ function createUserAccount(name) {
   headerEl.append(userAccountdivEl);
 }
 
-function createEditForm(post) {
-  let editForm = document.createElement("form");
-  let contentInput = document.createComment("input");
-  contentInput.setAttribute("type", "text");
-  contentInput.innerText = post.comment;
-  let submitBtn = document.createElement("button");
-}
+//posts are saved in the server but when I refresh the pg they disappear from the page. they are still in the server.
+//EDIT we need something that pops and the user can write on etc etc to get the new input value..
