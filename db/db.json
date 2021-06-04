@@ -12,27 +12,11 @@
   "posts": [
     {
       "orginalId": "2baf70d1-42bb-4437-b551-e5fed5a87abe",
-      "userId": 1,
-      "userName": "Valentina",
-      "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
-      "genre": "Romance",
-      "content": "ashahshsasdhsddsbbdf",
-      "rating": "1",
-      "animeInfo": {
-        "title": "Castle in the Sky",
-        "originalTitle": "天空の城ラピュタ",
-        "director": "Hayao Miyazaki",
-        "description": "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world."
-      },
-      "id": 1
-    },
-    {
-      "orginalId": "2baf70d1-42bb-4437-b551-e5fed5a87abe",
       "userId": 2,
       "userName": "Linlin",
       "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
       "genre": "Romance",
-      "content": "my feeling ",
+      "content": "yes yse",
       "rating": "4",
       "animeInfo": {
         "title": "Castle in the Sky",
@@ -41,6 +25,38 @@
         "description": "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world."
       },
       "id": 2
+    },
+    {
+      "orginalId": "578ae244-7750-4d9f-867b-f3cd3d6fecf4",
+      "userId": 1,
+      "userName": "Valentina",
+      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "genre": "Action",
+      "content": "good but a bit slow\n",
+      "rating": "3",
+      "animeInfo": {
+        "title": "The Tale of the Princess Kaguya",
+        "originalTitle": "かぐや姫の物語",
+        "director": "Isao Takahata",
+        "description": "A bamboo cutter named Sanuki no Miyatsuko discovers a miniature girl inside a glowing bamboo shoot. Believing her to be a divine presence, he and his wife decide to raise her as their own, calling her 'Princess'."
+      },
+      "id": 3
+    },
+    {
+      "orginalId": "ea660b10-85c4-4ae3-8a5f-41cea3648e3e",
+      "userId": 1,
+      "userName": "Valentina",
+      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "genre": "Magic",
+      "content": "dede",
+      "rating": "5",
+      "animeInfo": {
+        "title": "Kiki's Delivery Service",
+        "originalTitle": "魔女の宅急便",
+        "director": "Hayao Miyazaki",
+        "description": "A young witch, on her mandatory year of independent life, finds fitting into a new community difficult while she supports herself by running an air courier service."
+      },
+      "id": 4
     }
   ]
 }
