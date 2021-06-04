@@ -12,7 +12,7 @@ const mainRenderSection = document.querySelector(".main-render-section");
 const journaUlList = document.querySelector(".journal-Ul-List");
 const checkboxSection = document.querySelector(".checkbox-section");
 const accountDivision = document.querySelector(".user-accounts");
-console.log(accountDivision);
+const searchbarDiv = document.querySelector(".search-bar");
 
 //STATE:
 let state = {
@@ -26,6 +26,7 @@ let state = {
   },
   checkedGenre: [],
   currentMainCharactors: [],
+  search: "",
 };
 renderCheckbox();
 renderAside();
@@ -44,6 +45,44 @@ function renderAside() {
     createForm(state.niceFilmsFromAPI);
   });
 }
+
+//searchbar
+
+let createSearchForm = () => {
+  let searchForm = document.createElement("form");
+  searchForm.className = "search-form";
+
+  let searchBarInput = document.createElement("input");
+
+  let searchBtn = document.createElement("button");
+  searchBtn.className = "search-button";
+
+  searchBtn.innerText = "Search";
+
+  searchForm.append(searchBarInput, searchBtn);
+
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    let filteredPosts = state.posts.filter((singlePost) => {
+      return singlePost.animeInfo.title
+        .toLowerCase()
+        .includes(searchBarInput.value.toLowerCase());
+    });
+
+    state.posts = filteredPosts;
+    if (state.posts.length === 0) {
+      alert("no search result");
+      return;
+    }
+    renderCards();
+    searchForm.reset();
+  });
+
+  searchbarDiv.append(searchForm);
+};
+
+createSearchForm();
 
 //FILM DATA
 function getFilmInfo() {
@@ -286,9 +325,9 @@ function createForm(films) {
 // or we dont need to renderposts in here, can just render one card based on the form
 // use filter to find the data we look for
 
-function renderCards(posts) {
+function renderCards() {
   journaUlList.innerHTML = "";
-  posts.map(renderCard);
+  state.posts.map(renderCard);
 }
 
 //   post this post to our own server
@@ -381,7 +420,7 @@ function renderCard(post) {
         return targetPost.id !== post.id;
       });
       state.posts = filteredPosts;
-      renderCards(state.posts);
+      renderCards();
     });
   });
 
@@ -575,7 +614,7 @@ function createUserAccount(account) {
       };
       console.log("You just signed off");
 
-      renderCards(state.posts);
+      renderCards();
       renderUserAccounts(state.users);
       return;
     }
@@ -585,11 +624,11 @@ function createUserAccount(account) {
     renderUserAccounts(state.users);
 
     if (editForm !== null) {
-      renderCards(state.posts);
+      renderCards();
       return;
     }
 
-    renderCards(state.posts);
+    renderCards();
     console.log(state.activeUser);
   });
   return userAccountdivEl;
@@ -619,7 +658,7 @@ function createEditForm(post) {
   discardBtn.addEventListener("click", (e) => {
     e.preventDefault();
     editForm.remove();
-    renderCards(state.posts);
+    renderCards();
   });
 
   editForm.addEventListener("submit", function (e) {
@@ -629,6 +668,9 @@ function createEditForm(post) {
       alert(
         "content can not be empty, please choose discard or delete your journal"
       );
+      editForm.remove();
+      renderCards();
+      return;
     }
 
     if (state.activeUser.id !== post.userId) {
@@ -643,7 +685,8 @@ function createEditForm(post) {
         return targetPost.id === updatedPostFromServer.id;
       });
       state.posts[updatePostToStateIndex] = updatedPostFromServer;
-      renderCards(state.posts);
+
+      renderCards();
       editForm.remove();
     });
   });
@@ -686,7 +729,8 @@ function renderCheckedGenreList() {
   });
   console.log(state);
   console.log(filteredPosts);
-  renderCards(filteredPosts);
+  state.posts = filteredPosts;
+  renderCards();
 }
 
 function renderCheckbox() {
@@ -723,7 +767,7 @@ function renderCheckbox() {
 
         // console.log(checkStatusArray);
         if (!checkStatusArray.includes(true)) {
-          renderCards(state.posts);
+          renderCards();
         }
       }
     });
@@ -740,6 +784,6 @@ function renderCheckbox() {
     for (const checkboxInList of checkNodelists) {
       checkboxInList.checked = false;
     }
-    renderCards(state.posts);
+    renderCards();
   });
 }

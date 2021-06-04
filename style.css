@@ -115,6 +115,43 @@ header h1 {
   padding: 10px;
 }
 
+/* search-bar */
+
+.search-bar {
+  background-color: var(--primary-teal-half-transparent);
+  padding: 10px;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: 57% 10%;
+  align-items: center;
+  color: var(--primary-light-cyan);
+  gap: 20px;
+}
+
+.search-form input {
+  height: 30px;
+  border: none;
+  border-radius: 2px;
+  background-image: url(image/search.svg);
+  background-repeat: no-repeat;
+}
+
+.search-button {
+  background-color: lightpink;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: black;
+  margin-left: 10px;
+}
+
+.search-button:active {
+  background-color: coral;
+  color: var(--white-lavander);
+}
+
 /* checkboxes  */
 .checkbox-div {
   background-color: var(--primary-teal-half-transparent);
@@ -224,6 +261,7 @@ header h1 {
   padding: 5px;
   margin: 5px 0px;
   height: 80px;
+  overflow: scroll;
 }
 .journalContent form {
   display: grid;
