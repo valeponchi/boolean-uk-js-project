@@ -70,6 +70,7 @@ let createSearchForm = () => {
         .includes(searchBarInput.value.toLowerCase());
     });
 
+    console.log(state.posts);
     state.posts = filteredPosts;
     if (state.posts.length === 0) {
       alert("no search result");
@@ -784,6 +785,10 @@ function renderCheckbox() {
     for (const checkboxInList of checkNodelists) {
       checkboxInList.checked = false;
     }
-    renderCards();
+    state.search = "";
+    getPostsFromServer().then(function (postSFromServer) {
+      state.posts = postSFromServer;
+      renderCards();
+    });
   });
 }
