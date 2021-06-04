@@ -136,28 +136,30 @@ header h1 {
   margin: 0px 10px 0px 10px;
 }
 
-.journal-Ul-List {
+/* JOURNAl  */
+.journal-ul-List {
   display: grid;
+  /* grid-auto-flow: column; */
   grid-template-columns: repeat(auto-fit, 330px);
+  
   gap: 20px;
   padding: 20px;
   background-color: var(--primary-teal-full-transparent);
-
-  z-index: -1;
-  height: 100vh;
-  overflow: scroll;
+  /* height: 90vh;❌ */
 }
-.journallist {
+
+.journal-list {
   list-style: none;
-  height: 500px;
+  /* height: 500px;❌ */
   background-color: whitesmoke;
   padding: 20px;
   border-radius: 20px;
-  display: grid;
-  grid-template-rows: auto;
+  /* display: grid;❌ */
+  gap: 0px;
+  /* grid-template-rows: 0.6fr 0.6fr 0.4fr 2fr 0.3fr 2fr 1fr; */
 }
 
-.ratediv {
+.rating-div {
   background-color: #e6e6fa90;
   display: grid;
   grid-template-columns: auto auto;
@@ -167,7 +169,8 @@ header h1 {
 
   color: teal;
 }
-.ratingPara {
+
+.rating-p {
   display: grid;
   grid-template-columns: auto auto auto;
   align-items: center;
@@ -175,7 +178,7 @@ header h1 {
   gap: 10px;
 }
 
-.ratingscore {
+.rating-score {
   color: var(--primary-teal);
   font-weight: bolder;
   background-color: #cd5c5c50;
@@ -186,6 +189,7 @@ header h1 {
   display: grid;
   place-items: center;
 }
+
 .high-rating-score {
   color: gold;
   font-weight: bolder;
@@ -197,7 +201,8 @@ header h1 {
   display: grid;
   place-items: center;
 }
-.ratingGenre {
+
+.rating-genre {
   font-weight: bolder;
   color: var(--white-lavander);
   background-color: var(--primary-teal);
@@ -205,29 +210,31 @@ header h1 {
   padding: 5px 5px;
   text-align: center;
   width: 100px;
-  margin-left: 20px;
+  margin-right: 20px;
 }
-.filmpicture {
+
+.film-picture {
   width: 100%;
-  height: 120px;
   object-fit: cover;
 }
-.ratingstar {
-  width: 35px;
-  height: 35px;
+
+.rating-star {
+  width: 25px;
 }
-.titleofjournal {
+
+/* coundn't find this class in the js file: */
+.titleofjournal { 
   color: coral;
 }
-.journalContent {
+
+.journal-content {
   background-color: #ff634720;
   padding: 5px;
   margin: 5px 0px;
-  height: 80px;
 }
-.journalContent form {
+
+.journal-content form {
   display: grid;
-  /* grid-template-columns: auto auto; */
 
   grid-template:
     "input input" 2fr
@@ -236,44 +243,50 @@ header h1 {
   align-items: center;
   gap: 5px;
 }
+
 .content-edit {
   grid-area: input;
 }
 
-.filmDescription {
+.film-description {
   background-color: #d8bfd850;
   padding: 5px;
-  overflow: scroll;
+  /* overflow: scroll;❌ */
   color: tomato;
   font-weight: bolder;
 }
-.filmDescription span {
+
+.film-description span {
   color: black;
   font-weight: lighter;
 }
-.buttonsection {
+
+.button-section {
   display: grid;
   grid-template-columns: 44% 44%;
   gap: 30px;
   margin: 5px 0px;
 }
-.buttonsection button {
+
+.button-section button {
   background-color: slateblue;
   border: none;
   padding: 5px 20px;
   border-radius: 5px;
   color: aliceblue;
 }
-.buttonsection .deleteBTn {
+
+.button-section .delete-btn {
   background-color: tomato;
 }
 
-.buttonsection button:hover {
+.button-section button:hover {
   filter: brightness(1.5);
   transition: 0.2s;
   transform: scale(1.05);
 }
-.edit_submitBTn {
+
+.edit_submit-btn {
   grid-template: submit;
   background-color: darkcyan;
   border: none;
@@ -281,7 +294,8 @@ header h1 {
   border-radius: 5px;
   color: aliceblue;
 }
-.discard_submitBTn {
+
+.discard_submit-btn {
   grid-template: discard;
   background-color: coral;
   border: none;
@@ -289,6 +303,7 @@ header h1 {
   border-radius: 5px;
   color: aliceblue;
 }
+
 .clear_btn {
   background-color: lightpink;
   border: none;
@@ -302,68 +317,22 @@ header h1 {
   background-color: lavenderblush;
   transition: 0.2s;
 }
+
+/* USERS PROFILES  */
 .user-profile {
   height: 30px;
   width: 30px;
   object-fit: cover;
   border-radius: 50px;
 }
+
 .account-div {
   display: grid;
   grid-template-columns: 40px 1fr;
   align-items: center;
   padding: 0px;
 }
+
 .account-div span {
   font-weight: bolder;
-}
-.read-more-button {
-  margin-top: 5px;
-  padding: 5px;
-  background-color: var(--primary-teal);
-  border-radius: 10px;
-  border: none;
-  color: aliceblue;
-}
-.read-more-button:hover {
-  filter: brightness(1.5);
-  transition: 0.2s;
-}
-.main-charactor-div {
-  background-color: aliceblue;
-  display: grid;
-  grid-template-rows: auto;
-  height: 440px;
-  border-radius: 20px;
-  justify-content: center;
-  padding: 20px;
-  gap: 10px;
-}
-.charactor-div {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  align-items: center;
-  background-color: var(--white-lavander);
-  padding: 10px;
-}
-
-.charactor-profile {
-  height: 60px;
-  width: 60px;
-  border-radius: 50px;
-  object-fit: cover;
-}
-.main-render-section {
-  position: relative;
-  /* background-color: #18171790; */
-}
-.my-modal {
-  z-index: 1;
-  position: absolute;
-  top: 0px;
-  height: 100vh;
-  width: 77vw;
-  background-color: #18171790;
-  display: grid;
-  place-content: center;
 }

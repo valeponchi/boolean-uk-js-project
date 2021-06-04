@@ -8,8 +8,8 @@
 const headerEl = document.querySelector("header");
 const asideEl = document.querySelector(".aside");
 const mainEl = document.querySelector(".main");
-const mainRenderSection = document.querySelector(".main-render-section");
-const journaUlList = document.querySelector(".journal-Ul-List");
+const mainRenderSection = document.querySelector(".mainrendersection");
+const journalUlList = document.querySelector(".journal-ul-List");
 const checkboxSection = document.querySelector(".checkbox-section");
 const accountDivision = document.querySelector(".user-accounts");
 console.log(accountDivision);
@@ -18,15 +18,22 @@ console.log(accountDivision);
 let state = {
   users: [],
   posts: [],
-  people: [],
+
   niceFilmsFromAPI: [],
+
   activeUser: {
     id: null,
     name: null,
   },
   checkedGenre: [],
-  currentMainCharactors: [],
 };
+
+render()
+
+function render() {
+  getPostsFromServer()
+}
+
 renderCheckbox();
 renderAside();
 
@@ -73,7 +80,6 @@ function transformUglyFilmAPI(uglyFilmAPI) {
     releaseDate: uglyFilmAPI.release_date,
     description: uglyFilmAPI.description,
     director: uglyFilmAPI.director,
-    people: uglyFilmAPI.people[0],
   };
 
   return nicelyTransformedFilm;
@@ -91,15 +97,16 @@ function postToServer(post) {
 
 function getPostsFromServer() {
   return fetch("http://localhost:3000/posts").then(function (resp) {
-    return resp.json();
+    return resp.json()
+    .then(function (posts) {
+      state.posts = posts;
+      console.log(state.posts);
+      renderCards(posts);
+    });
   });
 }
 
-getPostsFromServer().then(function (posts) {
-  state.posts = posts;
-  console.log(state.posts);
-  renderCards(posts);
-});
+
 
 //ASIDE FORM FUNCTION:
 function createForm(films) {
@@ -235,7 +242,6 @@ function createForm(films) {
       genre: genreSelectEl.value,
       content: inputComment.value,
       rating: ratingSelectEl.value,
-      peopleUrl: foundFilm.people,
       animeInfo: {
         title: foundFilm.title,
         originalTitle: foundFilm.originalTitle,
@@ -280,22 +286,14 @@ function createForm(films) {
   asideEl.append(formEl);
 }
 
-// form(data from server) inside the form we can get the nicefilmapi, genre, title, etc then post to server/ state.posts/ then renderposts
-
-// posts should be state.posts and film should from the form
-// or we dont need to renderposts in here, can just render one card based on the form
-// use filter to find the data we look for
-
 function renderCards(posts) {
-  journaUlList.innerHTML = "";
+  journalUlList.innerHTML = "";
   posts.map(renderCard);
 }
 
-//   post this post to our own server
-
 function renderCard(post) {
   let journalList = document.createElement("li");
-  journalList.className = "journallist";
+  journalList.className = "journal-list";
 
   let userDiv = document.createElement("div");
   userDiv.className = "account-div";
@@ -334,15 +332,15 @@ function renderCard(post) {
   journalReviewTitle.append(spanFilmName, originalTitle);
 
   let ratingSection = document.createElement("div");
-  ratingSection.className = "ratediv";
+  ratingSection.className = "rating-div";
 
   let ratingPara = document.createElement("p");
 
-  ratingPara.className = "ratingPara";
+  ratingPara.className = "rating-p";
   ratingPara.innerText = `Rating:  `;
 
   let ratingScore = document.createElement("span");
-  ratingScore.className = "ratingscore";
+  ratingScore.className = "rating-score";
 
   ratingScore.innerText = `${post.rating} `;
 
@@ -353,26 +351,26 @@ function renderCard(post) {
   ratingPara.append(ratingScore);
 
   let svgel = document.createElement("img");
-  svgel.setAttribute("class", "ratingstar");
+  svgel.setAttribute("class", "rating-star");
 
   //put how may stars
   if (post.rating >= 3) {
-    svgel.setAttribute("src", "image/rate.svg");
+    svgel.setAttribute("src", "image/thumbs-up.svg");
 
     ratingPara.append(svgel);
   }
 
   let genre = document.createElement("span");
-  genre.className = "ratingGenre";
+  genre.className = "rating-genre";
   genre.innerText = post.genre;
 
   ratingSection.append(ratingPara, genre);
 
   let journalBtns = document.createElement("div");
-  journalBtns.className = "buttonsection";
+  journalBtns.className = "button-section";
 
   let deleteBTn = document.createElement("button");
-  deleteBTn.className = "deleteBTn";
+  deleteBTn.className = "delete-btn";
   deleteBTn.innerText = "DELETE";
 
   deleteBTn.addEventListener("click", function () {
@@ -408,66 +406,25 @@ function renderCard(post) {
   //todo create a form to edit then update to server then update to the state then rendercards
 
   let journalContent = document.createElement("p");
-  journalContent.className = "journalContent";
+  journalContent.className = "journal-content";
 
   //need to change
 
   journalContent.innerText = post.content;
 
   let filmPicture = document.createElement("img");
-  filmPicture.setAttribute("class", "filmpicture");
+  filmPicture.setAttribute("class", "film-picture");
   filmPicture.setAttribute("src", post.image);
 
   let filmDescription = document.createElement("p");
   filmDescription.innerText = "Description";
-  filmDescription.className = " filmDescription";
+  filmDescription.className = "film-description";
   filmDescription.innerText = "Description: ";
 
   let spanDescription = document.createElement("span");
   spanDescription.innerText = post.animeInfo.description;
 
   filmDescription.append(spanDescription);
-
-  let readMoreBtn = document.createElement("button");
-  readMoreBtn.className = "read-more-button";
-  readMoreBtn.innerText = "Main Charactors";
-
-  readMoreBtn.addEventListener("click", () => {
-    getCharactorsInfo(post).then((allPeopleFromServer) => {
-      console.log(allPeopleFromServer);
-      state.people = [...allPeopleFromServer];
-      console.log(state.people);
-      let filteredPeople = state.people.filter((peopleFromState) => {
-        return peopleFromState.films[0].includes(post.orginalId);
-      });
-
-      if (filteredPeople.length >= 4) {
-        filteredPeople = filteredPeople.slice(0, 4);
-      }
-      state.currentMainCharactors = filteredPeople;
-
-      if (state.currentMainCharactors.length === 0) {
-        alert("No available data from API");
-        return;
-      }
-
-      let imageSource = [
-        "image/onlyyesterday.jpeg",
-        "image/onlyyesterdaytwo.jpeg",
-        "image/pompoko.jpeg",
-        "image/spiritedAway.jpeg",
-      ];
-      console.log(state.currentMainCharactors);
-      let mainCharactorsDiv = renderProfile(imageSource);
-
-      let myModal = document.createElement("div");
-      myModal.className = "my-modal";
-      myModal.append(mainCharactorsDiv);
-      console.log(myModal);
-      console.log(mainRenderSection);
-      mainRenderSection.append(myModal);
-    });
-  });
 
   journalList.append(
     userDiv,
@@ -476,66 +433,11 @@ function renderCard(post) {
     journalContent,
     journalBtns,
     filmPicture,
-    filmDescription,
-    readMoreBtn
+    filmDescription
   );
 
-  journaUlList.append(journalList);
+  journalUlList.append(journalList);
 }
-
-//render charactors
-function renderProfile(imageSource) {
-  let mainCharactorsDiv = document.createElement("div");
-  mainCharactorsDiv.className = "main-charactor-div";
-
-  for (let i = 0; i < state.currentMainCharactors.length; i++) {
-    let charactorDiv = document.createElement("div");
-    charactorDiv.className = "charactor-div";
-
-    let charactorProfile = document.createElement("img");
-    charactorProfile.className = "charactor-profile";
-    charactorProfile.setAttribute("src", imageSource[i]);
-
-    let charactorDetails = {
-      Name: state.currentMainCharactors[i].name,
-      Gender: state.currentMainCharactors[i].gender,
-      Age: state.currentMainCharactors[i].age,
-    };
-
-    let charactorDetailsDiv = document.createElement("div");
-    charactorDetailsDiv.className = "charactor-details-div";
-
-    for (const key in charactorDetails) {
-      let charactorInfo = document.createElement("p");
-      charactorInfo.innerText = `${key}: ${charactorDetails[key]}`;
-      charactorDetailsDiv.append(charactorInfo);
-    }
-
-    charactorDiv.append(charactorProfile, charactorDetailsDiv);
-
-    mainCharactorsDiv.append(charactorDiv);
-  }
-
-  let closeBtn = document.createElement("button");
-  closeBtn.innerText = "close";
-  mainCharactorsDiv.append(closeBtn);
-  closeBtn.addEventListener("click", () => {
-    mainCharactorsDiv.remove();
-    let modal = document.querySelector(".my-modal");
-    modal.remove();
-  });
-
-  return mainCharactorsDiv;
-}
-
-//Fetch people
-
-let getCharactorsInfo = (post) => {
-  let peopleUrl = post.peopleUrl;
-  return fetch(peopleUrl).then((peopleFromServer) => {
-    return peopleFromServer.json();
-  });
-};
 
 //FETCH USERS
 function getUserInfo() {
@@ -573,9 +475,9 @@ function createUserAccount(account) {
         id: null,
         name: null,
       };
-      console.log("You just signed off");
-
+      // userAccountdivEl.classList.remove("active-user");
       renderCards(state.posts);
+      console.log("You just signed off");
       renderUserAccounts(state.users);
       return;
     }
@@ -599,7 +501,7 @@ function createEditForm(post) {
   let editForm = document.createElement("form");
   editForm.className = "edit-form";
   let contentInput = document.createElement("textarea");
-  contentInput.setAttribute("id", "edit-textarea");
+  contentInput.setAttribute(`id`, `edit-textarea-text`)
   contentInput.setAttribute("type", "text");
   contentInput.setAttribute("name", "contentEdit");
   contentInput.setAttribute("rows", "3");
@@ -608,11 +510,11 @@ function createEditForm(post) {
 
   let submitBtn = document.createElement("button");
   submitBtn.innerText = "Submit";
-  submitBtn.className = "edit_submitBTn";
+  submitBtn.className = "edit_submit-btn";
 
   let discardBtn = document.createElement("button");
   discardBtn.innerText = "Discard";
-  discardBtn.className = "discard_submitBTn";
+  discardBtn.className = "discard_submit-btn";
 
   editForm.append(contentInput, submitBtn, discardBtn);
 
@@ -624,30 +526,55 @@ function createEditForm(post) {
 
   editForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    let textAreaText = document.getElementById("edit-textarea").value;
-    if (textAreaText === "") {
+    let textareaText = document.getElementById(`edit-textarea-text`).value 
+    console.log(`Textarea Text: `, textareaText);
+    if (textareaText === "") {
       alert(
-        "content can not be empty, please choose discard or delete your journal"
+        `Content cannot be empty, please choose to discard or delete your journal`
       );
-    }
+    } else {
+
+        let updatePost = state.posts.find(function (targetPost) {
+          return targetPost.id === post.id;
+        });
+        let updateID = updatePost.id;
+        return fetch(`http://localhost:3000/posts/${updateID}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            content: textareaText,
+          }),
+        }).then(function (resp) {
+          return resp.json();
+        }).then(function(){
+          
+          setState({content: textareaText})
+
+        }) 
+
+      }
 
     if (state.activeUser.id !== post.userId) {
       editForm.remove();
-      alert("you are not the creator");
+      alert("You are not the creator of this journal!");
       return;
     }
-    updateContentToServer(editForm, post).then(function (
-      updatedPostFromServer
-    ) {
+    updateContentToServer(editForm, post).then(function (updatedPostFromServer) {
       let updatePostToStateIndex = state.posts.findIndex(function (targetPost) {
         return targetPost.id === updatedPostFromServer.id;
       });
+
       state.posts[updatePostToStateIndex] = updatedPostFromServer;
       renderCards(state.posts);
       editForm.remove();
     });
   });
   return editForm;
+}
+
+function setState(newState) {
+  state = {...state, ...newState}
+  render()
 }
 
 function updateContentToServer(form, post) {

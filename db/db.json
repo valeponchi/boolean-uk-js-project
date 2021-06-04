@@ -12,13 +12,12 @@
   "posts": [
     {
       "orginalId": "2baf70d1-42bb-4437-b551-e5fed5a87abe",
-      "userId": 1,
-      "userName": "Valentina",
+      "userId": 2,
+      "userName": "Linlin",
       "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
       "genre": "Romance",
-      "content": "sdfsghg",
-      "rating": "1",
-      "peopleUrl": "https://ghibliapi.herokuapp.com/people/",
+      "content": "yes yse",
+      "rating": "4",
       "animeInfo": {
         "title": "Castle in the Sky",
         "originalTitle": "天空の城ラピュタ",
@@ -28,55 +27,118 @@
       "id": 2
     },
     {
+      "orginalId": "578ae244-7750-4d9f-867b-f3cd3d6fecf4",
+      "userId": 1,
+      "userName": "Valentina",
+      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "genre": "Action",
+      "content": "good but a bit slow\n",
+      "rating": "3",
+      "animeInfo": {
+        "title": "The Tale of the Princess Kaguya",
+        "originalTitle": "かぐや姫の物語",
+        "director": "Isao Takahata",
+        "description": "A bamboo cutter named Sanuki no Miyatsuko discovers a miniature girl inside a glowing bamboo shoot. Believing her to be a divine presence, he and his wife decide to raise her as their own, calling her 'Princess'."
+      },
+      "id": 3
+    },
+    {
+      "orginalId": "ea660b10-85c4-4ae3-8a5f-41cea3648e3e",
+      "userId": 1,
+      "userName": "Valentina",
+      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "genre": "Magic",
+      "content": "dede",
+      "rating": "5",
+      "animeInfo": {
+        "title": "Kiki's Delivery Service",
+        "originalTitle": "魔女の宅急便",
+        "director": "Hayao Miyazaki",
+        "description": "A young witch, on her mandatory year of independent life, finds fitting into a new community difficult while she supports herself by running an air courier service."
+      },
+      "id": 4
+    },
+    {
       "orginalId": "58611129-2dbc-4a81-a72f-77ddfc1b1b49",
       "userId": 1,
       "userName": "Valentina",
-      "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
-      "genre": "Romance",
-      "content": "qewrfsdgbv",
+      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "genre": "Comedy",
+      "content": "a",
       "rating": "1",
-      "peopleUrl": "https://ghibliapi.herokuapp.com/people/986faac6-67e3-4fb8-a9ee-bad077c2e7fe",
       "animeInfo": {
         "title": "My Neighbor Totoro",
         "originalTitle": "となりのトトロ",
         "director": "Hayao Miyazaki",
         "description": "Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by Totoros, magical spirits of the forest. When the youngest runs away from home, the older sister seeks help from the spirits to find her."
       },
-      "id": 3
-    },
-    {
-      "orginalId": "ff24da26-a969-4f0e-ba1e-a122ead6c6e3",
-      "userId": 2,
-      "userName": "Linlin",
-      "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
-      "genre": "Romance",
-      "content": "wadaesdfg",
-      "rating": "1",
-      "peopleUrl": "https://ghibliapi.herokuapp.com/people/",
-      "animeInfo": {
-        "title": "Whisper of the Heart",
-        "originalTitle": "耳をすませば",
-        "director": "Yoshifumi Kondō",
-        "description": "Shizuku lives a simple life, dominated by her love for stories and writing. One day she notices that all the library books she has have been previously checked out by the same person: 'Seiji Amasawa'. Curious as to who he is, Shizuku meets a boy her age whom she finds infuriating, but discovers to her shock that he is her 'Prince of Books'. As she grows closer to him, she realises that he merely read all those books to bring himself closer to her. The boy Seiji aspires to be a violin maker in Italy, and it is his dreams that make Shizuku realise that she has no clear path for her life. Knowing that her strength lies in writing, she tests her talents by writing a story about Baron, a cat statuette belonging to Seiji's grandfather."
-      },
-      "id": 4
+      "id": 5
     },
     {
       "orginalId": "ff24da26-a969-4f0e-ba1e-a122ead6c6e3",
       "userId": 1,
       "userName": "Valentina",
-      "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
-      "genre": "Romance",
-      "content": "adsgadsgads",
+      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "genre": "Magic",
+      "content": "aaa",
       "rating": "1",
-      "peopleUrl": "https://ghibliapi.herokuapp.com/people/",
       "animeInfo": {
         "title": "Whisper of the Heart",
         "originalTitle": "耳をすませば",
         "director": "Yoshifumi Kondō",
         "description": "Shizuku lives a simple life, dominated by her love for stories and writing. One day she notices that all the library books she has have been previously checked out by the same person: 'Seiji Amasawa'. Curious as to who he is, Shizuku meets a boy her age whom she finds infuriating, but discovers to her shock that he is her 'Prince of Books'. As she grows closer to him, she realises that he merely read all those books to bring himself closer to her. The boy Seiji aspires to be a violin maker in Italy, and it is his dreams that make Shizuku realise that she has no clear path for her life. Knowing that her strength lies in writing, she tests her talents by writing a story about Baron, a cat statuette belonging to Seiji's grandfather."
       },
-      "id": 5
+      "id": 6
+    },
+    {
+      "orginalId": "4e236f34-b981-41c3-8c65-f8c9000b94e7",
+      "userId": 2,
+      "userName": "Linlin",
+      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "genre": "Action",
+      "content": "rrr",
+      "rating": "1",
+      "animeInfo": {
+        "title": "Only Yesterday",
+        "originalTitle": "おもひでぽろぽろ",
+        "director": "Isao Takahata",
+        "description": "It’s 1982, and Taeko is 27 years old, unmarried, and has lived her whole life in Tokyo. She decides to visit her family in the countryside, and as the train travels through the night, memories flood back of her younger years: the first immature stirrings of romance, the onset of puberty, and the frustrations of math and boys. At the station she is met by young farmer Toshio, and the encounters with him begin to reconnect her to forgotten longings. In lyrical switches between the present and the past, Taeko contemplates the arc of her life, and wonders if she has been true to the dreams of her childhood self."
+      },
+      "id": 7
+    },
+    {
+      "orginalId": "578ae244-7750-4d9f-867b-f3cd3d6fecf4",
+      "userId": 1,
+      "userName": "Valentina",
+      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "genre": "Magic",
+      "content": "a",
+      "rating": "1",
+      "peopleUrl": "https://ghibliapi.herokuapp.com/people/",
+      "animeInfo": {
+        "title": "The Tale of the Princess Kaguya",
+        "originalTitle": "かぐや姫の物語",
+        "director": "Isao Takahata",
+        "description": "A bamboo cutter named Sanuki no Miyatsuko discovers a miniature girl inside a glowing bamboo shoot. Believing her to be a divine presence, he and his wife decide to raise her as their own, calling her 'Princess'."
+      },
+      "id": 8
+    },
+    {
+      "orginalId": "12cfb892-aac0-4c5b-94af-521852e46d6a",
+      "userId": 1,
+      "userName": "Valentina",
+      "image": "https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "genre": "Action",
+      "content": "dd",
+      "rating": "1",
+      "peopleUrl": "https://ghibliapi.herokuapp.com/people/",
+      "animeInfo": {
+        "title": "Grave of the Fireflies",
+        "originalTitle": "火垂るの墓",
+        "director": "Isao Takahata",
+        "description": "In the latter part of World War II, a boy and his sister, orphaned when their mother is killed in the firebombing of Tokyo, are left to survive on their own in what remains of civilian life in Japan. The plot follows this boy and his sister as they do their best to survive in the Japanese countryside, battling hunger, prejudice, and pride in their own quiet, personal battle."
+      },
+      "id": 9
     }
   ]
 }
