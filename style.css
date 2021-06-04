@@ -149,7 +149,7 @@ header h1 {
 }
 .journallist {
   list-style: none;
-  height: 500px;
+  height: 630px;
   background-color: whitesmoke;
   padding: 20px;
   border-radius: 20px;
@@ -209,7 +209,7 @@ header h1 {
 }
 .filmpicture {
   width: 100%;
-  height: 120px;
+  /* height: 120px; */
   object-fit: cover;
 }
 .ratingstar {
@@ -366,4 +366,25 @@ header h1 {
   background-color: #18171790;
   display: grid;
   place-content: center;
+}
+
+/* scollbar  */
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1dff134; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d8bfd850; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-teal); 
 }

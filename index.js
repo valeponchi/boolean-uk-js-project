@@ -447,7 +447,8 @@ function renderCard(post) {
       state.currentMainCharactors = filteredPeople;
 
       if (state.currentMainCharactors.length === 0) {
-        alert("No available data from API");
+        
+        // alert("This film has no characters. ");
         return;
       }
 
@@ -629,6 +630,9 @@ function createEditForm(post) {
       alert(
         "content can not be empty, please choose discard or delete your journal"
       );
+      editForm.remove()
+      renderCards(state.posts)
+      return
     }
 
     if (state.activeUser.id !== post.userId) {

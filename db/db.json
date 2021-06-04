@@ -16,7 +16,7 @@
       "userName": "Valentina",
       "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
       "genre": "Romance",
-      "content": "sdfsghg",
+      "content": "not nice",
       "rating": "1",
       "peopleUrl": "https://ghibliapi.herokuapp.com/people/",
       "animeInfo": {
@@ -28,55 +28,21 @@
       "id": 2
     },
     {
-      "orginalId": "58611129-2dbc-4a81-a72f-77ddfc1b1b49",
-      "userId": 1,
-      "userName": "Valentina",
-      "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
-      "genre": "Romance",
-      "content": "qewrfsdgbv",
-      "rating": "1",
-      "peopleUrl": "https://ghibliapi.herokuapp.com/people/986faac6-67e3-4fb8-a9ee-bad077c2e7fe",
-      "animeInfo": {
-        "title": "My Neighbor Totoro",
-        "originalTitle": "となりのトトロ",
-        "director": "Hayao Miyazaki",
-        "description": "Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by Totoros, magical spirits of the forest. When the youngest runs away from home, the older sister seeks help from the spirits to find her."
-      },
-      "id": 3
-    },
-    {
-      "orginalId": "ff24da26-a969-4f0e-ba1e-a122ead6c6e3",
+      "orginalId": "ebbb6b7c-945c-41ee-a792-de0e43191bd8",
       "userId": 2,
       "userName": "Linlin",
-      "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
-      "genre": "Romance",
-      "content": "wadaesdfg",
+      "image": "https://images.static-bluray.com/reviews/11337_1.jpg",
+      "genre": "Magic",
+      "content": "aa",
       "rating": "1",
       "peopleUrl": "https://ghibliapi.herokuapp.com/people/",
       "animeInfo": {
-        "title": "Whisper of the Heart",
-        "originalTitle": "耳をすませば",
-        "director": "Yoshifumi Kondō",
-        "description": "Shizuku lives a simple life, dominated by her love for stories and writing. One day she notices that all the library books she has have been previously checked out by the same person: 'Seiji Amasawa'. Curious as to who he is, Shizuku meets a boy her age whom she finds infuriating, but discovers to her shock that he is her 'Prince of Books'. As she grows closer to him, she realises that he merely read all those books to bring himself closer to her. The boy Seiji aspires to be a violin maker in Italy, and it is his dreams that make Shizuku realise that she has no clear path for her life. Knowing that her strength lies in writing, she tests her talents by writing a story about Baron, a cat statuette belonging to Seiji's grandfather."
+        "title": "Porco Rosso",
+        "originalTitle": "紅の豚",
+        "director": "Hayao Miyazaki",
+        "description": "Porco Rosso, known in Japan as Crimson Pig (Kurenai no Buta) is the sixth animated film by Hayao Miyazaki and released in 1992. You're introduced to an Italian World War I fighter ace, now living as a freelance bounty hunter chasing 'air pirates' in the Adriatic Sea. He has been given a curse that changed his head to that of a pig. Once called Marco Pagot, he is now known to the world as 'Porco Rosso', Italian for 'Red Pig.'"
       },
-      "id": 4
-    },
-    {
-      "orginalId": "ff24da26-a969-4f0e-ba1e-a122ead6c6e3",
-      "userId": 1,
-      "userName": "Valentina",
-      "image": "https://images2.alphacoders.com/103/thumb-350-1031480.jpg",
-      "genre": "Romance",
-      "content": "adsgadsgads",
-      "rating": "1",
-      "peopleUrl": "https://ghibliapi.herokuapp.com/people/",
-      "animeInfo": {
-        "title": "Whisper of the Heart",
-        "originalTitle": "耳をすませば",
-        "director": "Yoshifumi Kondō",
-        "description": "Shizuku lives a simple life, dominated by her love for stories and writing. One day she notices that all the library books she has have been previously checked out by the same person: 'Seiji Amasawa'. Curious as to who he is, Shizuku meets a boy her age whom she finds infuriating, but discovers to her shock that he is her 'Prince of Books'. As she grows closer to him, she realises that he merely read all those books to bring himself closer to her. The boy Seiji aspires to be a violin maker in Italy, and it is his dreams that make Shizuku realise that she has no clear path for her life. Knowing that her strength lies in writing, she tests her talents by writing a story about Baron, a cat statuette belonging to Seiji's grandfather."
-      },
-      "id": 5
+      "id": 8
     }
   ]
 }
