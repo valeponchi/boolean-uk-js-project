@@ -417,6 +417,16 @@ function renderCard(post) {
 
   deleteBTn.addEventListener("click", function () {
     deleteDatatoServer(post).then(function () {
+      if (state.activeUser.id === null) {
+        alert("Sign in First");
+        return;
+      }
+
+      if (state.activeUser.id !== post.userId) {
+        alert("you are not the creator");
+        return;
+      }
+
       let filteredPosts = state.posts.filter(function (targetPost) {
         return targetPost.id !== post.id;
       });
@@ -429,7 +439,7 @@ function renderCard(post) {
   editBTn.innerText = "Edit";
 
   editBTn.addEventListener("click", function () {
-    if (state.activeUser.id == null) {
+    if (state.activeUser.id === null) {
       alert("Sign in First");
       return;
     }
