@@ -355,7 +355,7 @@ function renderCard(post) {
 
   //put how may stars
   if (post.rating >= 3) {
-    svgel.setAttribute("src", "image/rate.svg");
+    svgel.setAttribute("src", "image/thumbs-up.svg");
 
     ratingPara.append(svgel);
   }
