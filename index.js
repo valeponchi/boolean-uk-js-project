@@ -1,4 +1,4 @@
-// 1 create header which includes the user account,
+/ 1 create header which includes the user account,
 // 2 create a filter and form on the aside
 // 3 render in the main section, in this way we only render main section which is easier to read
 
@@ -47,7 +47,6 @@ function renderAside() {
 }
 
 //searchbar
-
 let createSearchForm = () => {
   let searchForm = document.createElement("form");
   searchForm.className = "search-form";
@@ -71,12 +70,13 @@ let createSearchForm = () => {
     });
 
     console.log(state.posts);
-    state.posts = filteredPosts;
-    if (state.posts.length === 0) {
-      alert("no search result");
+
+    if (filteredPosts.length === 0) {
+      // alert("no search result");
+      renderCards(filteredPosts);
       return;
     }
-    renderCards();
+
     searchForm.reset();
   });
 
@@ -84,6 +84,11 @@ let createSearchForm = () => {
 };
 
 createSearchForm();
+
+function setState(objectToChange) {
+  state = { ...state.posts, ...objectToChange };
+  renderCards(state.posts);
+}
 
 //FILM DATA
 function getFilmInfo() {
@@ -138,7 +143,7 @@ function getPostsFromServer() {
 getPostsFromServer().then(function (posts) {
   state.posts = posts;
   console.log(state.posts);
-  renderCards(posts);
+  renderCards(state.posts);
 });
 
 //ASIDE FORM FUNCTION:
@@ -288,7 +293,7 @@ function createForm(films) {
       state.posts.push(postFromServer);
       console.log(postFromServer);
       // renderCard(newPost);
-      renderCards(state.posts);
+      renderCards(postFromServer);
       formEl.reset();
     });
   });
@@ -326,9 +331,9 @@ function createForm(films) {
 // or we dont need to renderposts in here, can just render one card based on the form
 // use filter to find the data we look for
 
-function renderCards() {
+function renderCards(posts) {
   journaUlList.innerHTML = "";
-  state.posts.map(renderCard);
+  posts.map(renderCard);
 }
 
 //   post this post to our own server
@@ -430,8 +435,8 @@ function renderCard(post) {
       let filteredPosts = state.posts.filter(function (targetPost) {
         return targetPost.id !== post.id;
       });
-      state.posts = filteredPosts;
-      renderCards();
+
+      renderCards(filteredPosts);
     });
   });
 
@@ -625,7 +630,7 @@ function createUserAccount(account) {
       };
       console.log("You just signed off");
 
-      renderCards();
+      renderCards(state.posts);
       renderUserAccounts(state.users);
       return;
     }
@@ -635,7 +640,7 @@ function createUserAccount(account) {
     renderUserAccounts(state.users);
 
     if (editForm !== null) {
-      renderCards();
+      renderCards(state.posts);
       return;
     }
 
@@ -669,7 +674,7 @@ function createEditForm(post) {
   discardBtn.addEventListener("click", (e) => {
     e.preventDefault();
     editForm.remove();
-    renderCards();
+    renderCards(state.posts);
   });
 
   editForm.addEventListener("submit", function (e) {
@@ -680,7 +685,7 @@ function createEditForm(post) {
         "content can not be empty, please choose discard or delete your journal"
       );
       editForm.remove();
-      renderCards();
+      renderCards(state.posts);
       return;
     }
 
@@ -697,7 +702,7 @@ function createEditForm(post) {
       });
       state.posts[updatePostToStateIndex] = updatedPostFromServer;
 
-      renderCards();
+      renderCards(state.posts);
       editForm.remove();
     });
   });
@@ -740,8 +745,9 @@ function renderCheckedGenreList() {
   });
   console.log(state);
   console.log(filteredPosts);
-  state.posts = filteredPosts;
-  renderCards();
+  // state.posts = filteredPosts;
+  // setState({ posts: filteredPosts });
+  renderCards(filteredPosts);
 }
 
 function renderCheckbox() {
@@ -778,7 +784,8 @@ function renderCheckbox() {
 
         // console.log(checkStatusArray);
         if (!checkStatusArray.includes(true)) {
-          renderCards();
+          renderCards(state.posts);
+          // setState({ posts: filteredPosts });
         }
       }
     });
@@ -798,7 +805,8 @@ function renderCheckbox() {
     state.search = "";
     getPostsFromServer().then(function (postSFromServer) {
       state.posts = postSFromServer;
-      renderCards();
+      renderCards(state.posts);
     });
   });
 }
+
